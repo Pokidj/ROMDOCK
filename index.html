@@ -9,10 +9,10 @@
 <style>
 body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
 
-/* HEADER WITH BANNER BEHIND */
+/* HEADER FINO */
 .header-wrapper{
   position:relative;
-  height:260px;
+  height:160px;
   overflow:hidden;
 }
 
@@ -27,8 +27,8 @@ body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
 .main-title{
   position:relative;
   text-align:center;
-  padding-top:80px;
-  font-size:48px;
+  padding-top:45px;
+  font-size:40px;
   font-weight:800;
   letter-spacing:3px;
   font-family:'Orbitron', sans-serif;
@@ -37,7 +37,7 @@ body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
 /* SEARCH */
 .search-container{display:flex; justify-content:flex-start; padding:20px 30px;}
 #searchInput{
-  width:400px;
+  width:420px;
   padding:14px;
   border-radius:14px;
   border:1px solid #334155;
@@ -59,12 +59,11 @@ body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
   align-items:center;
   gap:10px;
   font-family:'Orbitron';
-  font-size:26px;
+  font-size:24px;
 }
 
-.section-title img{width:30px;}
+.section-title img{width:28px;}
 
-/* GRID */
 .row{display:flex; gap:15px; padding:20px;}
 
 .card{
@@ -85,7 +84,6 @@ body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
 
 .card:hover{transform:scale(1.08);}
 
-/* glow */
 .card[data-cat="PlayStation"]:hover{box-shadow:0 0 15px #3b82f6;}
 .card[data-cat="Nintendo"]:hover{box-shadow:0 0 15px #ef4444;}
 .card[data-cat="Xbox"]:hover{box-shadow:0 0 15px #22c55e;}
@@ -110,16 +108,8 @@ body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
   animation:zoomIn .25s;
 }
 
-.popup-logo{
-  width:80px;
-  margin-bottom:10px;
-}
-
-.popup-title{
-  font-family:'Orbitron';
-  font-size:22px;
-  margin-bottom:10px;
-}
+.popup-logo{width:80px; margin-bottom:10px;}
+.popup-title{font-family:'Orbitron'; font-size:22px; margin-bottom:10px;}
 
 .link-btn{
   width:100%;
@@ -169,7 +159,7 @@ body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
 
 <div id="app"></div>
 
-<div id="popup" class="modal">
+<div id="popup" class="modal" onclick="outsideClick(event)">
   <div class="modal-box">
     <img id="popupLogo" class="popup-logo" src="img/default.png">
     <div id="popupTitle" class="popup-title"></div>
@@ -197,7 +187,7 @@ function render(){
   cards=[];
 
   Object.keys(data).forEach(section=>{
-    let html = `<div class="section">
+    let html = `<div class="section" data-section="${section}">
       <div class="section-title">
         <img src="img/${section}.png" onerror="this.src='img/default.png'">
         ${section}
@@ -267,11 +257,33 @@ function closePopup(){
   document.getElementById("popup").style.display="none";
 }
 
+/* cerrar al hacer click fuera */
+function outsideClick(e){
+  if(e.target.id === "popup"){
+    closePopup();
+  }
+}
+
+/* BUSCADOR MEJORADO */
 function filter(){
   const val=document.getElementById("searchInput").value.toLowerCase();
-  cards.forEach(c=>{
-    const t=c.innerText.toLowerCase();
-    c.style.display=t.includes(val)?"flex":"none";
+
+  document.querySelectorAll(".section").forEach(section=>{
+    let visible=0;
+    const cat=section.dataset.section.toLowerCase();
+
+    section.querySelectorAll(".card").forEach(card=>{
+      const text=card.innerText.toLowerCase();
+
+      if(text.includes(val) || cat.includes(val)){
+        card.style.display="flex";
+        visible++;
+      } else {
+        card.style.display="none";
+      }
+    });
+
+    section.style.display = visible ? "block" : "none";
   });
 }
 
