@@ -50,7 +50,11 @@
     {
       "name": "PSP",
       "url": "https://romspure.cc/roms/sony-psp",
-      "img": "img/PSP.png"
+      "img": "img/PSP.png",
+      "links": [
+        "https://romspure.cc/roms/sony-psp",
+        "https://romspure.cc/roms/sony-psp"
+      ]
     }
   ],
   "Xbox": [
