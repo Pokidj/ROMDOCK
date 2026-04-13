@@ -9,11 +9,7 @@ body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
 header {text-align:center; padding:20px; background:#020617; font-size:30px;}
 
 .section {margin:30px 0;}
-.section-title {
-  font-size:22px; margin:20px;
-  border-bottom:2px solid #444;
-  display:flex; align-items:center; gap:10px;
-}
+.section-title {font-size:22px; margin:20px; border-bottom:2px solid #444; display:flex; align-items:center; gap:10px;}
 .section-title img{width:24px;height:24px;}
 
 .row {display:flex; overflow-x:auto; padding:20px; gap:15px;}
@@ -36,20 +32,9 @@ header {text-align:center; padding:20px; background:#020617; font-size:30px;}
   box-shadow:0 10px 25px rgba(0,0,0,.5);
 }
 
-.logo-box {
-  height:90px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
+.logo-box {height:90px; display:flex; align-items:center; justify-content:center;}
+.logo-box img {max-width:100%; max-height:100%; object-fit:contain;}
 
-.logo-box img {
-  max-width:100%;
-  max-height:100%;
-  object-fit:contain;
-}
-
-/* POPUP */
 .modal {
   position:fixed;
   top:0; left:0;
@@ -64,19 +49,14 @@ header {text-align:center; padding:20px; background:#020617; font-size:30px;}
   background:#1e293b;
   padding:20px;
   border-radius:15px;
-  width:300px;
+  width:320px;
   display:flex;
   flex-direction:column;
   gap:10px;
   align-items:center;
 }
 
-#popupLinks {
-  width:100%;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
+#popupLinks {width:100%; display:flex; flex-direction:column; gap:10px;}
 
 .link-btn {
   width:100%;
@@ -88,9 +68,7 @@ header {text-align:center; padding:20px; background:#020617; font-size:30px;}
   cursor:pointer;
 }
 
-.link-btn:hover {
-  background:#475569;
-}
+.link-btn:hover {background:#475569;}
 </style>
 </head>
 
@@ -151,15 +129,11 @@ function render(){
 function openLinks(section,name){
   const item = data[section].find(i=>i.name===name);
 
-  // 🔥 soporta ambos formatos
   let links = [];
+  if(item.links) links = item.links;
+  else if(item.url) links = [item.url];
 
-  if(item.links){
-    links = item.links;
-  } else if(item.url){
-    links = [item.url];
-  }
-
+  // 🔥 FIX CLAVE
   if(links.length === 1){
     window.open(links[0], "_blank");
     return;
@@ -168,14 +142,14 @@ function openLinks(section,name){
   if(links.length > 1){
 
     document.getElementById("popupTitle").textContent = name;
-    document.getElementById("popupLogo").src = item.img;
+    document.getElementById("popupLogo").src = item.img || "img/default.png";
 
     const container = document.getElementById("popupLinks");
-    container.innerHTML="";
+    container.innerHTML = "";
 
     links.forEach(link=>{
       const btn = document.createElement("button");
-      btn.className="link-btn";
+      btn.className = "link-btn";
 
       let label = link;
       try {
@@ -184,17 +158,17 @@ function openLinks(section,name){
       } catch {}
 
       btn.textContent = "🌐 " + label;
-      btn.onclick = ()=>window.open(link,"_blank");
+      btn.onclick = () => window.open(link, "_blank");
 
       container.appendChild(btn);
     });
 
-    document.getElementById("linksPopup").style.display="flex";
+    document.getElementById("linksPopup").style.display = "flex";
   }
 }
 
 function closePopup(){
-  document.getElementById("linksPopup").style.display="none";
+  document.getElementById("linksPopup").style.display = "none";
 }
 
 </script>
