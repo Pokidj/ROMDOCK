@@ -8,8 +8,42 @@
 body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
 header {text-align:center; padding:20px; background:#020617; font-size:30px;}
 
-.section {margin:30px 0;}
-.section-title {font-size:22px; margin:20px; border-bottom:2px solid #444; display:flex; align-items:center; gap:10px;}
+.search-container {display:flex; justify-content:center; padding:15px;}
+#searchInput {
+  width:320px; max-width:80%;
+  padding:12px; border-radius:12px;
+  border:1px solid #334155;
+  background:#020617; color:white;
+  outline:none; transition:0.2s;
+}
+#searchInput:focus {
+  border-color:#38bdf8;
+  box-shadow:0 0 10px rgba(56,189,248,0.4);
+}
+
+/* autocomplete */
+#suggestions {
+  position:absolute;
+  background:#020617;
+  border:1px solid #334155;
+  border-radius:10px;
+  width:320px;
+  max-width:80%;
+  margin-top:5px;
+  z-index:10;
+}
+.suggestion {
+  padding:8px;
+  cursor:pointer;
+}
+.suggestion:hover {background:#334155;}
+
+.section {margin:30px 0; transition:0.3s;}
+.section-title {
+  font-size:22px; margin:20px;
+  border-bottom:2px solid #444;
+  display:flex; align-items:center; gap:10px;
+}
 .section-title img{width:24px;height:24px;}
 
 .row {display:flex; overflow-x:auto; padding:20px; gap:15px;}
@@ -24,7 +58,13 @@ header {text-align:center; padding:20px; background:#020617; font-size:30px;}
   align-items:center;
   justify-content:space-between;
   cursor:pointer;
-  transition: transform .2s, box-shadow .2s;
+  transition: transform .2s, box-shadow .2s, opacity .3s;
+}
+
+.card.hidden {
+  opacity:0;
+  transform:scale(0.9);
+  pointer-events:none;
 }
 
 .card:hover {
@@ -70,7 +110,6 @@ header {text-align:center; padding:20px; background:#020617; font-size:30px;}
 
 .link-btn:hover {background:#475569;}
 
-/* BOTÓN CERRAR PRO */
 .btn-close {
   width:100%;
   background:linear-gradient(145deg,#334155,#1e293b);
@@ -79,14 +118,6 @@ header {text-align:center; padding:20px; background:#020617; font-size:30px;}
   border-radius:10px;
   color:white;
   cursor:pointer;
-  transition:0.2s;
-  font-weight:500;
-}
-
-.btn-close:hover {
-  background:#475569;
-  transform:scale(1.05);
-  box-shadow:0 0 10px rgba(0,0,0,0.4);
 }
 </style>
 </head>
@@ -94,6 +125,13 @@ header {text-align:center; padding:20px; background:#020617; font-size:30px;}
 <body>
 
 <header>🎮 Biblioteca de ROMs</header>
+
+<div class="search-container">
+  <div>
+    <input type="text" id="searchInput" placeholder="🔍 Buscar consola o categoría..." oninput="filterConsoles(); showSuggestions()">
+    <div id="suggestions"></div>
+  </div>
+</div>
 
 <div id="app"></div>
 
@@ -107,23 +145,17 @@ header {text-align:center; padding:20px; background:#020617; font-size:30px;}
 </div>
 
 <script>
-
 let data = {};
 
 fetch("data.json")
   .then(res => res.json())
-  .then(json => {
-    data = json;
-    render();
-  });
+  .then(json => { data = json; render(); });
 
 function render(){
   const app = document.getElementById("app");
   app.innerHTML="";
-
   Object.keys(data).forEach(section=>{
-    let html = `
-    <div class="section">
+    let html = `<div class="section">
       <div class="section-title">
         <img src="img/${section}.png" onerror="this.src='img/default.png'">
         ${section}
@@ -131,8 +163,7 @@ function render(){
       <div class="row">`;
 
     data[section].forEach(item=>{
-      html += `
-      <div class="card" onclick="openLinks('${section}','${item.name}')">
+      html += `<div class="card" onclick="openLinks('${section}','${item.name}')">
         <div class="logo-box">
           <img src="${item.img}" onerror="this.src='img/default.png'">
         </div>
@@ -140,55 +171,87 @@ function render(){
       </div>`;
     });
 
-    html += `</div></div>`;
+    html += "</div></div>";
     app.innerHTML += html;
+  });
+}
+
+function filterConsoles(){
+  const search = document.getElementById("searchInput").value.toLowerCase();
+  document.querySelectorAll(".section").forEach(section=>{
+    let visible = 0;
+    const category = section.querySelector(".section-title").textContent.toLowerCase();
+
+    section.querySelectorAll(".card").forEach(card=>{
+      const name = card.querySelector("h3").textContent.toLowerCase();
+
+      if(name.includes(search) || category.includes(search)){
+        card.classList.remove("hidden");
+        visible++;
+      } else {
+        card.classList.add("hidden");
+      }
+    });
+
+    section.style.display = visible ? "block" : "none";
+  });
+}
+
+function showSuggestions(){
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const box = document.getElementById("suggestions");
+  box.innerHTML="";
+
+  if(!input) return;
+
+  const suggestions = new Set();
+
+  Object.keys(data).forEach(section=>{
+    if(section.toLowerCase().includes(input)) suggestions.add(section);
+
+    data[section].forEach(item=>{
+      if(item.name.toLowerCase().includes(input)) suggestions.add(item.name);
+    });
+  });
+
+  suggestions.forEach(s=>{
+    const div = document.createElement("div");
+    div.className="suggestion";
+    div.textContent=s;
+    div.onclick=()=>{
+      document.getElementById("searchInput").value=s;
+      box.innerHTML="";
+      filterConsoles();
+    };
+    box.appendChild(div);
   });
 }
 
 function openLinks(section,name){
   const item = data[section].find(i=>i.name===name);
+  let links = item.links ? item.links : (item.url ? [item.url] : []);
 
-  let links = [];
-  if(item.links) links = item.links;
-  else if(item.url) links = [item.url];
+  if(links.length===1){ window.open(links[0],"_blank"); return; }
 
-  if(links.length === 1){
-    window.open(links[0], "_blank");
-    return;
-  }
+  const container=document.getElementById("popupLinks");
+  container.innerHTML="";
+  document.getElementById("popupTitle").textContent=name;
+  document.getElementById("popupLogo").src=item.img;
 
-  if(links.length > 1){
+  links.forEach(link=>{
+    const btn=document.createElement("button");
+    btn.className="link-btn";
+    btn.textContent=link;
+    btn.onclick=()=>window.open(link,"_blank");
+    container.appendChild(btn);
+  });
 
-    document.getElementById("popupTitle").textContent = name;
-    document.getElementById("popupLogo").src = item.img || "img/default.png";
-
-    const container = document.getElementById("popupLinks");
-    container.innerHTML = "";
-
-    links.forEach(link=>{
-      const btn = document.createElement("button");
-      btn.className = "link-btn";
-
-      let label = link;
-      try {
-        const u = new URL(link);
-        label = u.hostname.replace("www.","");
-      } catch {}
-
-      btn.textContent = "🌐 " + label;
-      btn.onclick = () => window.open(link, "_blank");
-
-      container.appendChild(btn);
-    });
-
-    document.getElementById("linksPopup").style.display = "flex";
-  }
+  document.getElementById("linksPopup").style.display="flex";
 }
 
 function closePopup(){
-  document.getElementById("linksPopup").style.display = "none";
+  document.getElementById("linksPopup").style.display="none";
 }
-
 </script>
 
 </body>
