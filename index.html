@@ -100,7 +100,6 @@ header {text-align:center; padding:20px; background:#020617; font-size:30px;}
 
 <div id="app"></div>
 
-<!-- POPUP -->
 <div id="linksPopup" class="modal">
   <div class="modal-box">
     <img id="popupLogo" src="img/default.png" style="width:70px;">
@@ -114,15 +113,11 @@ header {text-align:center; padding:20px; background:#020617; font-size:30px;}
 
 let data = {};
 
-// 🔥 CARGAR JSON EXTERNO
 fetch("data.json")
   .then(res => res.json())
   .then(json => {
     data = json;
     render();
-  })
-  .catch(err => {
-    console.error("Error cargando data.json", err);
   });
 
 function render(){
@@ -155,36 +150,47 @@ function render(){
 
 function openLinks(section,name){
   const item = data[section].find(i=>i.name===name);
-  const links = item.links || [];
+
+  // 🔥 soporta ambos formatos
+  let links = [];
+
+  if(item.links){
+    links = item.links;
+  } else if(item.url){
+    links = [item.url];
+  }
 
   if(links.length === 1){
-    window.open(links[0],"_blank");
+    window.open(links[0], "_blank");
     return;
   }
 
-  document.getElementById("popupTitle").textContent = name;
-  document.getElementById("popupLogo").src = item.img;
+  if(links.length > 1){
 
-  const container = document.getElementById("popupLinks");
-  container.innerHTML="";
+    document.getElementById("popupTitle").textContent = name;
+    document.getElementById("popupLogo").src = item.img;
 
-  links.forEach(link=>{
-    const btn = document.createElement("button");
-    btn.className="link-btn";
+    const container = document.getElementById("popupLinks");
+    container.innerHTML="";
 
-    let label = link;
-    try {
-      const u = new URL(link);
-      label = u.hostname;
-    } catch {}
+    links.forEach(link=>{
+      const btn = document.createElement("button");
+      btn.className="link-btn";
 
-    btn.textContent = label;
-    btn.onclick = ()=>window.open(link,"_blank");
+      let label = link;
+      try {
+        const u = new URL(link);
+        label = u.hostname.replace("www.","");
+      } catch {}
 
-    container.appendChild(btn);
-  });
+      btn.textContent = "🌐 " + label;
+      btn.onclick = ()=>window.open(link,"_blank");
 
-  document.getElementById("linksPopup").style.display="flex";
+      container.appendChild(btn);
+    });
+
+    document.getElementById("linksPopup").style.display="flex";
+  }
 }
 
 function closePopup(){
