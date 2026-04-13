@@ -1,0 +1,147 @@
+{
+  "Nintendo": [
+    {
+      "name": "NES",
+      "img": "img/Nintendo Entertainment System.png",
+      "url": "https://www.mediafire.com/file/f3gwi97f3hwwall/950_juegos_traducidos_al_castellano.7z/file"
+    },
+    {
+      "name": "SNES",
+      "img": "img/Super Nintendo Entertainment System.png",
+      "url": "https://archive.org/details/350.-sn-3s.-roms-esp-cd"
+    },
+    {
+      "name": "N64",
+      "img": "img/Nintendo 64.png",
+      "url": "https://archive.org/details/ed64m-n64-eu"
+    },
+    {
+      "name": "Game Boy Color",
+      "img": "img/Nintendo Game Boy Color.png",
+      "url": "https://archive.org/details/gbc_20240311"
+    },
+    {
+      "name": "Game Boy Advance",
+      "img": "img/Nintendo Game Boy Advance.png",
+      "url": "https://archive.org/details/gba_20240311"
+    },
+    {
+      "name": "Nintendo Switch",
+      "img": "img/Nintendo Switch.png",
+      "url": "https://www.tendoku.com/"
+    }
+  ],
+  "PlayStation": [
+    {
+      "name": "PS1",
+      "img": "img/Sony Playstation.png",
+      "url": "https://archive.org/details/PS1_EU_CHD_Arquivista"
+    },
+    {
+      "name": "PS2",
+      "img": "img/Sony Playstation 2.png",
+      "url": "https://archive.org/download/ps2-eu-roms321com/all/"
+    },
+    {
+      "name": "PS3",
+      "img": "img/Sony Playstation 3.png",
+      "url": "https://vimm.net/vault/PS3"
+    },
+    {
+      "name": "PSP",
+      "url": "https://romspure.cc/roms/sony-psp",
+      "img": "img/PSP.png"
+    }
+  ],
+  "Xbox": [
+    {
+      "name": "Xbox",
+      "img": "img/Microsoft Xbox.png",
+      "url": "https://vimm.net/vault/Xbox"
+    },
+    {
+      "name": "Xbox 360",
+      "img": "img/Microsoft Xbox 360.png",
+      "url": "https://vimm.net/vault/Xbox360"
+    }
+  ],
+  "SEGA": [
+    {
+      "name": "Mega Drive",
+      "img": "img/Sega Mega Drive.png",
+      "url": "https://archive.org/details/md_20240311"
+    },
+    {
+      "name": "Master System",
+      "img": "img/Sega Master System.png",
+      "url": "https://archive.org/details/sms_20240311"
+    },
+    {
+      "name": "Game Gear",
+      "img": "img/Sega Game Gear.png",
+      "url": "https://archive.org/details/gg_20240312"
+    },
+    {
+      "name": "32X",
+      "img": "img/Sega 32X.png",
+      "url": "https://archive.org/details/32x_20240311"
+    },
+    {
+      "name": "Mega CD",
+      "img": "img/Sega Mega-CD.png",
+      "url": "https://archive.org/details/mdcd_20240312"
+    },
+    {
+      "name": "Saturn",
+      "img": "img/Sega Saturn.png",
+      "url": "https://archive.org/details/SSCHD-Arquivista"
+    },
+    {
+      "name": "Dreamcast",
+      "img": "img/Sega Dreamcast.png",
+      "url": "https://archive.org/details/sega-dreamcast-redump-collection"
+    }
+  ],
+  "Otros": [
+    {
+      "name": "Neo Geo",
+      "img": "img/Neo Geo.png",
+      "url": "https://archive.org/details/neogeo_202403"
+    },
+    {
+      "name": "Neo Geo Pocket",
+      "img": "img/Neo Geo Pocket.png",
+      "url": "https://archive.org/details/ngp_20240322"
+    },
+    {
+      "name": "Atomiswave",
+      "img": "img/Atomiswave.png",
+      "url": "https://archive.org/details/atomiswave.-7z"
+    },
+    {
+      "name": "MAME",
+      "img": "img/MAME.png",
+      "url": "https://archive.org/details/mame_20240311"
+    },
+    {
+      "name": "PC Engine",
+      "img": "img/PC Engine.png",
+      "url": "https://archive.org/details/pce_20240312"
+    },
+    {
+      "name": "Atari Lynx",
+      "img": "img/Atari Lynx.png",
+      "url": "https://archive.org/details/lynx_20240322"
+    },
+    {
+      "name": "PICO-8",
+      "img": "img/Pico-8.png",
+      "url": "https://archive.org/details/pico_20240316"
+    },
+    {
+      "name": "ScummVM",
+      "img": "img/ScummVM.png",
+      "url": "https://archive.org/details/mini-romset-scummvm-espanol-42-juegos"
+    }
+  ]
+}

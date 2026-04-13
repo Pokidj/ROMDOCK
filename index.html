@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Biblioteca de ROMs</title>
+
+<style>
+body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
+header {text-align:center; padding:20px; background:#020617; font-size:30px;}
+
+.section {margin:30px 0;}
+.section-title {
+  font-size:22px; margin:20px;
+  border-bottom:2px solid #444;
+  display:flex; align-items:center; gap:10px;
+}
+.section-title img{width:24px;height:24px;}
+
+.row {display:flex; overflow-x:auto; padding:20px; gap:15px;}
+
+.card {
+  width:220px; height:220px;
+  background:#1e293b;
+  border-radius:15px;
+  padding:10px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  cursor:pointer;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.card:hover {
+  transform:scale(1.08);
+  box-shadow:0 10px 25px rgba(0,0,0,.5);
+}
+
+.logo-box {
+  height:90px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.logo-box img {
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+}
+
+/* POPUP */
+.modal {
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.7);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal-box {
+  background:#1e293b;
+  padding:20px;
+  border-radius:15px;
+  width:300px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  align-items:center;
+}
+
+#popupLinks {
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.link-btn {
+  width:100%;
+  background:#334155;
+  border:none;
+  padding:10px;
+  border-radius:10px;
+  color:white;
+  cursor:pointer;
+}
+
+.link-btn:hover {
+  background:#475569;
+}
+</style>
+</head>
+
+<body>
+
+<header>🎮 Biblioteca de ROMs</header>
+
+<div id="app"></div>
+
+<!-- POPUP -->
+<div id="linksPopup" class="modal">
+  <div class="modal-box">
+    <img id="popupLogo" src="img/default.png" style="width:70px;">
+    <h2 id="popupTitle"></h2>
+    <div id="popupLinks"></div>
+    <button onclick="closePopup()">Cerrar</button>
+  </div>
+</div>
+
+<script>
+
+let data = {};
+
+// 🔥 CARGAR JSON EXTERNO
+fetch("data.json")
+  .then(res => res.json())
+  .then(json => {
+    data = json;
+    render();
+  })
+  .catch(err => {
+    console.error("Error cargando data.json", err);
+  });
+
+function render(){
+  const app = document.getElementById("app");
+  app.innerHTML="";
+
+  Object.keys(data).forEach(section=>{
+    let html = `
+    <div class="section">
+      <div class="section-title">
+        <img src="img/${section}.png" onerror="this.src='img/default.png'">
+        ${section}
+      </div>
+      <div class="row">`;
+
+    data[section].forEach(item=>{
+      html += `
+      <div class="card" onclick="openLinks('${section}','${item.name}')">
+        <div class="logo-box">
+          <img src="${item.img}" onerror="this.src='img/default.png'">
+        </div>
+        <h3>${item.name}</h3>
+      </div>`;
+    });
+
+    html += `</div></div>`;
+    app.innerHTML += html;
+  });
+}
+
+function openLinks(section,name){
+  const item = data[section].find(i=>i.name===name);
+  const links = item.links || [];
+
+  if(links.length === 1){
+    window.open(links[0],"_blank");
+    return;
+  }
+
+  document.getElementById("popupTitle").textContent = name;
+  document.getElementById("popupLogo").src = item.img;
+
+  const container = document.getElementById("popupLinks");
+  container.innerHTML="";
+
+  links.forEach(link=>{
+    const btn = document.createElement("button");
+    btn.className="link-btn";
+
+    let label = link;
+    try {
+      const u = new URL(link);
+      label = u.hostname;
+    } catch {}
+
+    btn.textContent = label;
+    btn.onclick = ()=>window.open(link,"_blank");
+
+    container.appendChild(btn);
+  });
+
+  document.getElementById("linksPopup").style.display="flex";
+}
+
+function closePopup(){
+  document.getElementById("linksPopup").style.display="none";
+}
+
+</script>
+
+</body>
+</html>
