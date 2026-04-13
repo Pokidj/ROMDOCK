@@ -69,6 +69,25 @@ header {text-align:center; padding:20px; background:#020617; font-size:30px;}
 }
 
 .link-btn:hover {background:#475569;}
+
+/* BOTÓN CERRAR PRO */
+.btn-close {
+  width:100%;
+  background:linear-gradient(145deg,#334155,#1e293b);
+  border:none;
+  padding:10px;
+  border-radius:10px;
+  color:white;
+  cursor:pointer;
+  transition:0.2s;
+  font-weight:500;
+}
+
+.btn-close:hover {
+  background:#475569;
+  transform:scale(1.05);
+  box-shadow:0 0 10px rgba(0,0,0,0.4);
+}
 </style>
 </head>
 
@@ -83,7 +102,7 @@ header {text-align:center; padding:20px; background:#020617; font-size:30px;}
     <img id="popupLogo" src="img/default.png" style="width:70px;">
     <h2 id="popupTitle"></h2>
     <div id="popupLinks"></div>
-    <button onclick="closePopup()">Cerrar</button>
+    <button class="btn-close" onclick="closePopup()">Cerrar</button>
   </div>
 </div>
 
@@ -133,7 +152,6 @@ function openLinks(section,name){
   if(item.links) links = item.links;
   else if(item.url) links = [item.url];
 
-  // 🔥 FIX CLAVE
   if(links.length === 1){
     window.open(links[0], "_blank");
     return;
