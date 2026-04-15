@@ -134,10 +134,7 @@ function render(){
   app.innerHTML="";
 
   Object.keys(data).forEach(section=>{
-    let html=`<div class="section" draggable="true"
-      ondragstart="dragSectionStart(event,'${section}')"
-      ondragover="dragOver(event)"
-      ondrop="dropSection(event,'${section}')">
+    let html=`<div class="section">
       <div class="section-title">
         <img src="../img/${section}.png" onerror="this.src='../img/default.png'">
         ${section}
@@ -162,114 +159,10 @@ function render(){
   });
 }
 
-let draggedSection = null;
-
-function dragOver(e){ e.preventDefault(); }
-
-function dragSectionStart(e,section){
-  draggedSection = section;
-}
-
-function dropSection(e,targetSection){
-  e.preventDefault();
-  if(!draggedSection || draggedSection===targetSection) return;
-
-  const keys = Object.keys(data);
-  const from = keys.indexOf(draggedSection);
-  const to = keys.indexOf(targetSection);
-
-  const entries = Object.entries(data);
-  const [moved] = entries.splice(from,1);
-  entries.splice(to,0,moved);
-
-  data = Object.fromEntries(entries);
-  render();
-}.png" onerror="this.src='../img/default.png'">
-        ${section}
-      </div>
-      <div class="row">`;
-
-    data[section].forEach(item=>{
-      html+=`<div class="card" onclick="openModal('${section}','${item.name}')">
-        <div class="card-actions">
-          <button class="icon-btn" onclick="event.stopPropagation();openModal('${section}','${item.name}')">✏️</button>
-          <button class="icon-btn" onclick="event.stopPropagation();deleteItem('${section}','${item.name}')">🗑️</button>
-        </div>
-        <div class="logo-box">
-          <img src="../${encodeURI(item.img)}" onerror="this.src='../img/default.png'">
-        </div>
-        <h3>${item.name}</h3>
-      </div>`;
-    });
-
-    html+="</div></div>";
-    app.innerHTML+=html;
-  });
-}
-
-function openModal(section=null,name=null){
-  document.getElementById("modal").style.display="flex";
-  const select=document.getElementById("category");
-  select.innerHTML="";
-  Object.keys(data).forEach(c=>select.innerHTML+=`<option>${c}</option>`);
-
-  const container=document.getElementById("linksContainer");
-  container.innerHTML="";
-
-  if(name){
-    const item=data[section].find(i=>i.name===name);
-    document.getElementById("name").value=item.name;
-    select.value=section;
-
-    (item.links||[item.url]).forEach(l=>addLinkField(l));
-
-    editTarget={section,name};
-  } else {
-    document.getElementById("name").value="";
-    addLinkField();
-    editTarget=null;
-  }
-}
-
-function addLinkField(val=""){
-  const c=document.getElementById("linksContainer");
-  const d=document.createElement("div");
-  d.style.display="flex"; d.style.gap="5px";
-  d.innerHTML=`<input placeholder="URL" value="${val}">
-               <button onclick="this.parentElement.remove()">❌</button>`;
-  c.appendChild(d);
-}
-
-function closeModal(){document.getElementById("modal").style.display="none";}
-
-function saveItem(){
-  let section=document.getElementById("category").value;
-  const newCat=document.getElementById("newCategory").value;
-  if(!editTarget && newCat){section=newCat;}
-
-  const name=document.getElementById("name").value;
-
-  const links=[];
-  document.querySelectorAll("#linksContainer input").forEach(i=>{
-    if(i.value) links.push(i.value);
-  });
-
-  if(!data[section]) data[section]=[];
-
-  if(editTarget){
-    const item=data[editTarget.section].find(i=>i.name===editTarget.name);
-    item.name=name;
-    item.links=links;
-    item.img="img/"+name+".png";
-  }else{
-    data[section].push({name,links,img:"img/"+name+".png"});
-  }
-
-  closeModal();
-  render();
-}
-
 function deleteItem(section,name){
+  data[section]=data[section].filter(i=>i.name!==name);
+  render();
+}(section,name){
   data[section]=data[section].filter(i=>i.name!==name);
   render();
 }
