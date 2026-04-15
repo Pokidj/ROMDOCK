@@ -73,11 +73,31 @@
       ]
     },
     {
+      "name": "DS",
+      "links": [
+        "https://nswgame.com/category/ds/",
+        "https://romsfun.com/roms/nintendo-ds/",
+        "https://romspure.cc/roms/nintendo-ds",
+        "https://nswgame.com/category/ds/"
+      ],
+      "img": "img/DS.png"
+    },
+    {
+      "name": "3DS",
+      "links": [
+        "https://romsfun.com/roms/nintendo-3ds/",
+        "https://romspure.cc/roms/3ds",
+        "https://nswgame.com/category/3ds/"
+      ],
+      "img": "img/3DS.png"
+    },
+    {
       "name": "WII",
       "links": [
         "https://romsfun.com/roms/nintendo-wii/",
         "https://romspure.cc/roms/nintendo-wii",
-        "https://uptoroms.com/roms/nintendo-wii/"
+        "https://uptoroms.com/roms/nintendo-wii/",
+        "https://nswgame.com/category/game-wii/"
       ],
       "img": "img/WII.png"
     },
@@ -85,7 +105,8 @@
       "name": "WIIU",
       "links": [
         "https://romsfun.com/roms/wii-u/",
-        "https://romspure.cc/roms/wii-u"
+        "https://romspure.cc/roms/wii-u",
+        "https://nswgame.com/category/game-wii-u/"
       ],
       "img": "img/WIIU.png"
     },
@@ -94,7 +115,9 @@
       "img": "img/Nintendo Switch.png",
       "url": "https://www.tendoku.com/",
       "links": [
-        "https://tendoku.com/daftar-game-nintendo-switch/"
+        "https://tendoku.com/daftar-game-nintendo-switch/",
+        "https://nswgame.com/category/switch/",
+        "https://romsns.com/game-roms-list/"
       ]
     }
   ],
@@ -107,7 +130,9 @@
         "https://romsfun.com/roms/playstation/",
         "https://romspure.cc/roms/sony-playstation",
         "https://uptoroms.com/roms/playstation/",
-        "https://archive.org/details/PS1_EU_CHD_Arquivista"
+        "https://archive.org/details/PS1_EU_CHD_Arquivista",
+        "https://psxforever.com/",
+        "https://archive.org/download/PS1_EU_CHD_Arquivista"
       ]
     },
     {
@@ -127,14 +152,16 @@
       "links": [
         "https://romsfun.com/roms/ps3/",
         "https://romspure.cc/roms/sony-playstation-3",
-        "https://vimm.net/vault/PS3"
+        "https://vimm.net/vault/PS3",
+        "https://dlpsgame.com/category/ps3/"
       ]
     },
     {
       "name": "PS4",
       "links": [
         "https://romsfun.com/roms/playstation-4/",
-        "https://romspure.cc/roms/sony-playstation-4"
+        "https://romspure.cc/roms/sony-playstation-4",
+        "https://dlpsgame.com/category/ps4/"
       ],
       "img": "img/PS4.png"
     },
@@ -146,14 +173,15 @@
         "https://romsfun.com/roms/playstation-portable/",
         "https://romspure.cc/roms/sony-psp",
         "https://uptoroms.com/roms/psp/",
-        "https://romspure.cc/roms/sony-psp"
+        "https://downloadgamepsp.org/"
       ]
     },
     {
       "name": "PSVITA",
       "links": [
         "https://romsfun.com/roms/ps-vita/",
-        "https://romspure.cc/roms/sony-playstation-vita"
+        "https://romspure.cc/roms/sony-playstation-vita",
+        "https://downloadgamepsp.org/category/psvita-game-free-new/"
       ],
       "img": "img/PSVITA.png"
     }
@@ -177,7 +205,8 @@
       "links": [
         "https://romsfun.com/roms/xbox-360/",
         "https://romspure.cc/roms/microsoft-xbox-360",
-        "https://vimm.net/vault/Xbox360"
+        "https://vimm.net/vault/Xbox360",
+        "https://dlxbgame.com/"
       ]
     }
   ],
@@ -258,6 +287,14 @@
       "name": "ScummVM",
       "img": "img/ScummVM.png",
       "url": "https://archive.org/details/mini-romset-scummvm-espanol-42-juegos"
+    },
+    {
+      "name": "PCGAMES",
+      "links": [
+        "https://gamepciso.com/",
+        "https://pgfiles.com/"
+      ],
+      "img": "img/PCGAMES.png"
     }
   ]
 }
