@@ -226,3 +226,37 @@ border-radius:15px;
 font-family:'Orbitron';
 display:none;
 }
+
+/* guardarengit */
+
+.confirm-modal{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.7);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:1000;
+}
+
+.confirm-box{
+background:linear-gradient(145deg,#1e293b,#020617);
+padding:30px;
+border-radius:20px;
+width:320px;
+text-align:center;
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.confirm-box p{
+font-family:'Orbitron';
+font-size:16px;
+}
+
+.confirm-buttons{
+display:flex;
+gap:10px;
+}
