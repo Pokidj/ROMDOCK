@@ -90,7 +90,9 @@ body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
 
 <div class="topbar">
   <button onclick="openModal()">➕ Añadir</button>
-  <button onclick="saveJSON()">💾 Guardar</button>
+  <button onclick="saveJSON()">💾 Descargar JSON</button>
+  <button onclick="saveToGitHub()">🚀 Guardar en GitHub</button>
+  <button onclick="setGitHubToken()">🔐 Token</button>
   <label class="upload">📂 Cargar<input type="file" onchange="loadJSON(event)"></label>
 </div>
 
@@ -135,6 +137,50 @@ function loadJSON(e){
   r.readAsText(e.target.files[0]);
 }
 
+// TOKEN
+function setGitHubToken(){
+  const token = prompt("Pega tu GitHub Token:");
+  if(token){
+    localStorage.setItem("gh_token", token);
+    alert("✅ Token guardado");
+  }
+}
+
+// SAVE GITHUB
+async function saveToGitHub(){
+  let token = localStorage.getItem("gh_token");
+  if(!token){
+    alert("Configura el token primero 🔐");
+    return;
+  }
+
+  const repo = "pokidj/ROMDOCK";
+  const path = "data.json";
+
+  const res = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+    headers: { Authorization: `token ${token}` }
+  });
+
+  const file = await res.json();
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+
+  await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `token ${token}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      message: "Update data.json from editor",
+      content: content,
+      sha: file.sha
+    })
+  });
+
+  alert("🚀 Guardado en GitHub");
+}
+
+// RENDER
 function render(){
   const app = document.getElementById("app");
   app.innerHTML = "";
@@ -175,6 +221,7 @@ function render(){
   });
 }
 
+// DRAG
 function dragStart(e){
   draggedItem = {section:e.currentTarget.dataset.section,name:e.currentTarget.dataset.name};
 }
@@ -182,10 +229,8 @@ function dragOver(e){ e.preventDefault(); }
 
 function dropItem(e){
   e.preventDefault();
-
   const targetSection = e.currentTarget.dataset.section;
   const targetName = e.currentTarget.dataset.name;
-
   if(!draggedItem) return;
 
   const sourceSection = draggedItem.section;
@@ -194,31 +239,27 @@ function dropItem(e){
     const list = data[targetSection];
     const from = list.findIndex(i=>i.name===draggedItem.name);
     const to = list.findIndex(i=>i.name===targetName);
-
     const [moved] = list.splice(from,1);
     list.splice(to,0,moved);
   } else {
     const sourceList = data[sourceSection];
     const targetList = data[targetSection];
-
     const from = sourceList.findIndex(i=>i.name===draggedItem.name);
     const to = targetList.findIndex(i=>i.name===targetName);
-
     const [moved] = sourceList.splice(from,1);
     targetList.splice(to,0,moved);
-
     draggedItem.section = targetSection;
   }
 
   render();
 }
 
+// MODAL + CRUD (igual que antes)
 function openModal(section=null,name=null){
   document.getElementById("modal").style.display="flex";
   const select=document.getElementById("category");
   select.innerHTML="";
   Object.keys(data).forEach(c=>select.innerHTML+=`<option>${c}</option>`);
-
   const container=document.getElementById("linksContainer");
   container.innerHTML="";
 
@@ -238,9 +279,7 @@ function openModal(section=null,name=null){
 function addLinkField(val=""){
   const c=document.getElementById("linksContainer");
   const d=document.createElement("div");
-  d.style.display="flex"; d.style.gap="5px";
-  d.innerHTML=`<input placeholder="URL" value="${val}">
-               <button onclick="this.parentElement.remove()">❌</button>`;
+  d.innerHTML=`<input value="${val}"><button onclick="this.parentElement.remove()">❌</button>`;
   c.appendChild(d);
 }
 
@@ -248,9 +287,6 @@ function closeModal(){document.getElementById("modal").style.display="none";}
 
 function saveItem(){
   let section=document.getElementById("category").value;
-  const newCat=document.getElementById("newCategory").value;
-  if(!editTarget && newCat){section=newCat;}
-
   const name=document.getElementById("name").value;
 
   const links=[];
@@ -287,7 +323,7 @@ function deleteItem(section,name){
 }
 
 function saveJSON(){
-  const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  const blob=new Blob([JSON.stringify(data,null,2)]);
   const a=document.createElement("a");
   a.href=URL.createObjectURL(blob);
   a.download="data.json";
