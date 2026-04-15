@@ -102,7 +102,9 @@ app.innerHTML+=html;
 function dragStart(e){
 draggedItem={section:e.currentTarget.dataset.section,name:e.currentTarget.dataset.name};
 }
+
 function dragOver(e){e.preventDefault();}
+
 function dropItem(e){
 e.preventDefault();
 
@@ -156,7 +158,10 @@ ${url.hostname}
 
 document.getElementById("linksPopup").style.display="flex";
 }
-function closeLinksPopup(){document.getElementById("linksPopup").style.display="none";}
+
+function closeLinksPopup(){
+document.getElementById("linksPopup").style.display="none";
+}
 
 /* CRUD */
 function deleteItem(section,name){
@@ -240,6 +245,7 @@ render();
 
 /* FILE */
 function loadClick(){document.getElementById("fileInput").click();}
+
 function loadJSON(e){
 const r=new FileReader();
 r.onload=ev=>{data=JSON.parse(ev.target.result);render();};
