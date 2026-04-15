@@ -9,22 +9,26 @@
 
 <style>
 body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
+
 .header-wrapper{position:relative;height:130px;overflow:hidden;}
 .banner{position:absolute;width:100%;height:100%;background:url("../img/banner.png") center/cover no-repeat;filter:brightness(0.5);} 
 .main-title{position:relative;text-align:center;padding-top:30px;font-size:52px;font-weight:800;letter-spacing:3px;font-family:'Orbitron';}
 
-.topbar{display:flex;gap:10px;padding:15px;justify-content:center;}
-.topbar button, .upload{
-  background:#1e293b;color:white;border:none;
-  padding:12px 18px;border-radius:12px;cursor:pointer;
-  font-family:'Orbitron';
-}
-.upload input{display:none;}
+/* TOPBAR */
+.topbar{display:flex;align-items:center;padding:15px;}
+.topbar-left{display:flex;gap:10px;}
+.topbar-right{margin-left:auto;}
 
+.topbar button{
+  background:#1e293b;color:white;border:none;
+  padding:10px 14px;border-radius:10px;cursor:pointer;
+  font-family:'Orbitron';font-size:14px;
+}
+
+/* GRID */
 .section{margin:10px 0;border-top:1px solid #334155;padding-top:10px;}
 .section-title{margin:20px;display:flex;align-items:center;gap:10px;font-family:'Orbitron';font-size:24px;}
 .section-title img{width:28px;}
-
 .row{display:flex;gap:15px;padding:20px;flex-wrap:wrap;}
 
 .card{
@@ -47,6 +51,7 @@ body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
 .logo-box{height:90px;display:flex;align-items:center;justify-content:center;}
 .logo-box img{max-width:100%;max-height:100%;}
 
+/* MODAL PERFECTAMENTE ALINEADO */
 .modal{
   position:fixed;top:0;left:0;width:100%;height:100%;
   background:rgba(0,0,0,0.75);
@@ -55,29 +60,110 @@ body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
 
 .modal-box{
   background:linear-gradient(145deg,#1e293b,#020617);
-  padding:30px;border-radius:20px;width:420px;
-  display:flex;flex-direction:column;gap:10px;align-items:center;
+  padding:30px;
+  border-radius:20px;
+  width:420px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
 }
 
-.modal-logo{width:100px;}
-
-.modal-box input, .modal-box select{
-  width:100%;background:#020617;color:white;
-  border:1px solid #334155;padding:12px;border-radius:12px;
+.modal-logo{
+  width:100px;
+  margin:auto;
 }
 
-.links-container{width:100%;display:flex;flex-direction:column;gap:6px;}
+.modal-box h2{
+  text-align:center;
+  font-family:'Orbitron';
+  margin:5px 0 10px;
+}
+
+.modal-box input,
+.modal-box select{
+  width:100%;
+  background:#020617;
+  color:white;
+  border:1px solid #334155;
+  padding:12px;
+  border-radius:12px;
+  box-sizing:border-box;
+}
+
+.links-container{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.link-row{
+  display:flex;
+  gap:6px;
+}
+
+.link-row input{
+  flex:1;
+}
+
+.link-row button{
+  width:40px;
+  border:none;
+  border-radius:8px;
+  background:#334155;
+  color:white;
+}
 
 .add-link-btn{
-  width:100%;background:#334155;border:none;
-  padding:10px;border-radius:10px;cursor:pointer;
+  width:100%;
+  background:#334155;
+  border:none;
+  padding:10px;
+  border-radius:10px;
+  cursor:pointer;
 }
 
-.modal-buttons{display:flex;gap:10px;width:100%;}
-.btn-primary{flex:1;background:#0ea5e9;border:none;padding:12px;border-radius:10px;color:white;}
-.btn-secondary{flex:1;background:#334155;border:none;padding:12px;border-radius:10px;color:white;}
+.modal-buttons{
+  display:flex;
+  gap:10px;
+  width:100%;
+}
+
+.btn-primary{
+  flex:1;
+  background:#0ea5e9;
+  border:none;
+  padding:12px;
+  border-radius:10px;
+  color:white;
+}
+
+.btn-secondary{
+  flex:1;
+  background:#334155;
+  border:none;
+  padding:12px;
+  border-radius:10px;
+  color:white;
+}
 
 .footer{text-align:center;padding:20px;font-size:12px;color:#64748b;}
+
+/* TOAST */
+#toast{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:#020617;
+  padding:20px 30px;
+  border-radius:15px;
+  font-family:Orbitron;
+  display:none;
+  z-index:9999;
+  box-shadow:0 0 30px rgba(0,0,0,0.6);
+  text-align:center;
+}
 </style>
 </head>
 
@@ -89,11 +175,17 @@ body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
 </div>
 
 <div class="topbar">
-  <button onclick="openModal()">➕ Añadir</button>
-  <button onclick="saveJSON()">💾 Descargar JSON</button>
-  <button onclick="saveToGitHub()">🚀 Guardar en GitHub</button>
-  <button onclick="setGitHubToken()">🔐 Token</button>
-  <label class="upload">📂 Cargar<input type="file" onchange="loadJSON(event)"></label>
+  <div class="topbar-left">
+    <button onclick="saveJSON()">💾</button>
+    <button onclick="loadClick()">📁</button>
+    <button onclick="saveToGitHub()">💾 GITHUB</button>
+  </div>
+
+  <div class="topbar-right">
+    <button onclick="openModal()">➕</button>
+  </div>
+
+  <input type="file" id="fileInput" style="display:none" onchange="loadJSON(event)">
 </div>
 
 <div id="app"></div>
@@ -101,11 +193,11 @@ body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
 <div class="modal" id="modal">
   <div class="modal-box">
     <img src="../img/default.png" class="modal-logo">
-    <h2 id="modalTitle">Añadir consola</h2>
+    <h2>Añadir / Editar</h2>
 
     <select id="category"></select>
-    <input id="newCategory" placeholder="Nueva categoría">
-    <input id="name" placeholder="Nombre de la consola">
+    <input id="newCategory" placeholder="Nueva categoría (opcional)">
+    <input id="name" placeholder="Nombre">
 
     <div class="links-container" id="linksContainer"></div>
     <button class="add-link-btn" onclick="addLinkField()">➕ Añadir enlace</button>
@@ -117,159 +209,149 @@ body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
   </div>
 </div>
 
+<div id="toast"></div>
 <div class="footer">Editor ROMDOCK</div>
 
 <script>
-let data = {};
-let draggedItem = null;
-let editTarget = null;
+let data={},draggedItem=null,editTarget=null;
 
-// AUTO LOAD
 fetch("../data.json",{cache:"no-store"})
-.then(r=>r.json())
-.then(j=>{data=j; render();})
-.catch(()=>{});
+.then(r=>r.json()).then(j=>{data=j;render();});
 
-// MANUAL LOAD
+function loadClick(){document.getElementById("fileInput").click();}
 function loadJSON(e){
-  const r = new FileReader();
-  r.onload = ev => { data = JSON.parse(ev.target.result); render(); };
+  const r=new FileReader();
+  r.onload=ev=>{data=JSON.parse(ev.target.result);render();};
   r.readAsText(e.target.files[0]);
 }
 
-// TOKEN
-function setGitHubToken(){
-  const token = prompt("Pega tu GitHub Token:");
-  if(token){
-    localStorage.setItem("gh_token", token);
-    alert("✅ Token guardado");
-  }
+function showToast(msg,ok=true){
+  const t=document.getElementById("toast");
+  t.innerHTML=msg;
+  t.style.display="block";
+  t.style.border=ok?"2px solid #22c55e":"2px solid #ef4444";
+  setTimeout(()=>t.style.display="none",2500);
 }
 
-// SAVE GITHUB
 async function saveToGitHub(){
-  let token = localStorage.getItem("gh_token");
+  let token=localStorage.getItem("gh_token");
   if(!token){
-    alert("Configura el token primero 🔐");
-    return;
+    token=prompt("Introduce tu GitHub Token:");
+    if(!token)return;
+    localStorage.setItem("gh_token",token);
   }
 
-  const repo = "pokidj/ROMDOCK";
-  const path = "data.json";
+  showToast("⏳ Guardando...");
 
-  const res = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
-    headers: { Authorization: `token ${token}` }
+  const repo="pokidj/ROMDOCK";
+  const path="data.json";
+
+  const res=await fetch(`https://api.github.com/repos/${repo}/contents/${path}`,{
+    headers:{Authorization:`token ${token}`}
   });
 
-  const file = await res.json();
-  const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+  const file=await res.json();
+  const content=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
 
-  await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
-    method: "PUT",
-    headers: {
-      Authorization: `token ${token}`,
-      "Content-Type": "application/json"
+  const update=await fetch(`https://api.github.com/repos/${repo}/contents/${path}`,{
+    method:"PUT",
+    headers:{
+      Authorization:`token ${token}`,
+      "Content-Type":"application/json"
     },
-    body: JSON.stringify({
-      message: "Update data.json from editor",
-      content: content,
-      sha: file.sha
+    body:JSON.stringify({
+      message:"Update data.json",
+      content,
+      sha:file.sha
     })
   });
 
-  alert("🚀 Guardado en GitHub");
+  if(update.ok){
+    showToast("🚀 Guardado correctamente<br><small>Puede tardar unos segundos</small>");
+  }else{
+    showToast("❌ Error",false);
+  }
 }
 
-// RENDER
 function render(){
-  const app = document.getElementById("app");
-  app.innerHTML = "";
-
+  const app=document.getElementById("app");
+  app.innerHTML="";
   Object.keys(data).forEach(section=>{
-    let html = `<div class="section">
+    let html=`<div class="section">
       <div class="section-title">
         <img src="../img/${section}.png" onerror="this.src='../img/default.png'">
         ${section}
-      </div>
-      <div class="row">`;
+      </div><div class="row">`;
 
     data[section].forEach(item=>{
-      html += `<div class="card"
-        draggable="true"
-        ondragstart="dragStart(event)"
-        ondragover="dragOver(event)"
-        ondrop="dropItem(event)"
-        data-section="${section}"
-        data-name="${item.name}"
-        onclick='handleClick(${JSON.stringify(section)}, ${JSON.stringify(item.name)})'>
+      html+=`<div class="card"
+      draggable="true"
+      ondragstart="dragStart(event)"
+      ondragover="dragOver(event)"
+      ondrop="dropItem(event)"
+      data-section="${section}"
+      data-name="${item.name}"
+      onclick='openModal(${JSON.stringify(section)},${JSON.stringify(item.name)})'>
 
-        <div class="card-actions">
-          <button class="icon-btn" onclick='event.stopPropagation();openModal(${JSON.stringify(section)}, ${JSON.stringify(item.name)})'>✏️</button>
-          <button class="icon-btn" onclick='event.stopPropagation();deleteItem(${JSON.stringify(section)}, ${JSON.stringify(item.name)})'>🗑️</button>
-        </div>
+      <div class="card-actions">
+        <button class="icon-btn" onclick='event.stopPropagation();openModal(${JSON.stringify(section)},${JSON.stringify(item.name)})'>✏️</button>
+        <button class="icon-btn" onclick='event.stopPropagation();deleteItem(${JSON.stringify(section)},${JSON.stringify(item.name)})'>🗑️</button>
+      </div>
 
-        <div class="logo-box">
-          <img src="../${encodeURI(item.img)}" onerror="this.src='../img/default.png'">
-        </div>
+      <div class="logo-box">
+        <img src="../${encodeURI(item.img)}" onerror="this.src='../img/default.png'">
+      </div>
 
-        <h3>${item.name}</h3>
-      </div>`;
+      <h3>${item.name}</h3></div>`;
     });
 
-    html += `</div></div>`;
-    app.innerHTML += html;
+    html+="</div></div>";
+    app.innerHTML+=html;
   });
 }
 
-// DRAG
-function dragStart(e){
-  draggedItem = {section:e.currentTarget.dataset.section,name:e.currentTarget.dataset.name};
-}
-function dragOver(e){ e.preventDefault(); }
-
+function dragStart(e){draggedItem={section:e.currentTarget.dataset.section,name:e.currentTarget.dataset.name};}
+function dragOver(e){e.preventDefault();}
 function dropItem(e){
   e.preventDefault();
-  const targetSection = e.currentTarget.dataset.section;
-  const targetName = e.currentTarget.dataset.name;
-  if(!draggedItem) return;
+  const tSec=e.currentTarget.dataset.section;
+  const tName=e.currentTarget.dataset.name;
+  const sSec=draggedItem.section;
 
-  const sourceSection = draggedItem.section;
-
-  if(sourceSection === targetSection){
-    const list = data[targetSection];
-    const from = list.findIndex(i=>i.name===draggedItem.name);
-    const to = list.findIndex(i=>i.name===targetName);
-    const [moved] = list.splice(from,1);
-    list.splice(to,0,moved);
-  } else {
-    const sourceList = data[sourceSection];
-    const targetList = data[targetSection];
-    const from = sourceList.findIndex(i=>i.name===draggedItem.name);
-    const to = targetList.findIndex(i=>i.name===targetName);
-    const [moved] = sourceList.splice(from,1);
-    targetList.splice(to,0,moved);
-    draggedItem.section = targetSection;
+  if(sSec===tSec){
+    const list=data[tSec];
+    const from=list.findIndex(i=>i.name===draggedItem.name);
+    const to=list.findIndex(i=>i.name===tName);
+    const [m]=list.splice(from,1);
+    list.splice(to,0,m);
+  }else{
+    const s=data[sSec];
+    const t=data[tSec];
+    const from=s.findIndex(i=>i.name===draggedItem.name);
+    const to=t.findIndex(i=>i.name===tName);
+    const [m]=s.splice(from,1);
+    t.splice(to,0,m);
+    draggedItem.section=tSec;
   }
-
   render();
 }
 
-// MODAL + CRUD (igual que antes)
 function openModal(section=null,name=null){
   document.getElementById("modal").style.display="flex";
-  const select=document.getElementById("category");
-  select.innerHTML="";
-  Object.keys(data).forEach(c=>select.innerHTML+=`<option>${c}</option>`);
-  const container=document.getElementById("linksContainer");
-  container.innerHTML="";
+  const sel=document.getElementById("category");
+  sel.innerHTML="";
+  Object.keys(data).forEach(c=>sel.innerHTML+=`<option>${c}</option>`);
+
+  const cont=document.getElementById("linksContainer");
+  cont.innerHTML="";
 
   if(name){
     const item=data[section].find(i=>i.name===name);
     document.getElementById("name").value=item.name;
-    select.value=section;
-    (item.links||[item.url]).forEach(l=>addLinkField(l));
+    sel.value=section;
+    (item.links||[]).forEach(l=>addLinkField(l));
     editTarget={section,name};
-  } else {
+  }else{
     document.getElementById("name").value="";
     addLinkField();
     editTarget=null;
@@ -279,6 +361,7 @@ function openModal(section=null,name=null){
 function addLinkField(val=""){
   const c=document.getElementById("linksContainer");
   const d=document.createElement("div");
+  d.className="link-row";
   d.innerHTML=`<input value="${val}"><button onclick="this.parentElement.remove()">❌</button>`;
   c.appendChild(d);
 }
@@ -287,26 +370,27 @@ function closeModal(){document.getElementById("modal").style.display="none";}
 
 function saveItem(){
   let section=document.getElementById("category").value;
-  const name=document.getElementById("name").value;
+  const newCat=document.getElementById("newCategory").value.trim();
 
+  if(newCat) section=newCat;
+
+  const name=document.getElementById("name").value;
   const links=[];
-  document.querySelectorAll("#linksContainer input").forEach(i=>{
-    if(i.value) links.push(i.value);
-  });
+  document.querySelectorAll("#linksContainer input").forEach(i=>i.value&&links.push(i.value));
 
   if(!data[section]) data[section]=[];
 
   if(editTarget){
-    const oldSection = editTarget.section;
-    const index = data[oldSection].findIndex(i=>i.name===editTarget.name);
-    const item = data[oldSection][index];
+    const old=editTarget.section;
+    const i=data[old].findIndex(x=>x.name===editTarget.name);
+    const item=data[old][i];
 
     item.name=name;
     item.links=links;
     item.img="img/"+name+".png";
 
-    if(oldSection !== section){
-      data[oldSection].splice(index,1);
+    if(old!==section){
+      data[old].splice(i,1);
       data[section].push(item);
     }
   }else{
@@ -328,6 +412,7 @@ function saveJSON(){
   a.href=URL.createObjectURL(blob);
   a.download="data.json";
   a.click();
+  showToast("💾 JSON descargado");
 }
 </script>
 
