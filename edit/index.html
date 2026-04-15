@@ -122,13 +122,13 @@ let data = {};
 let draggedItem = null;
 let editTarget = null;
 
-// ✅ CARGA AUTOMÁTICA (sin romper carga manual)
-fetch("../data.json", { cache: "no-store" })
-  .then(r => r.json())
-  .then(j => { data = j; render(); })
-  .catch(() => {});
+// AUTO LOAD
+fetch("../data.json",{cache:"no-store"})
+.then(r=>r.json())
+.then(j=>{data=j; render();})
+.catch(()=>{});
 
-// ✅ CARGA MANUAL (tuya, intacta)
+// MANUAL LOAD
 function loadJSON(e){
   const r = new FileReader();
   r.onload = ev => { data = JSON.parse(ev.target.result); render(); };
@@ -155,11 +155,11 @@ function render(){
         ondrop="dropItem(event)"
         data-section="${section}"
         data-name="${item.name}"
-        onclick="handleClick(${JSON.stringify(section)},${JSON.stringify(item.name)})">
+        onclick='handleClick(${JSON.stringify(section)}, ${JSON.stringify(item.name)})'>
 
         <div class="card-actions">
-          <button class="icon-btn" onclick="event.stopPropagation();openModal(${JSON.stringify(section)},${JSON.stringify(item.name)})">✏️</button>
-          <button class="icon-btn" onclick="event.stopPropagation();deleteItem(${JSON.stringify(section)},${JSON.stringify(item.name)})">🗑️</button>
+          <button class="icon-btn" onclick='event.stopPropagation();openModal(${JSON.stringify(section)}, ${JSON.stringify(item.name)})'>✏️</button>
+          <button class="icon-btn" onclick='event.stopPropagation();deleteItem(${JSON.stringify(section)}, ${JSON.stringify(item.name)})'>🗑️</button>
         </div>
 
         <div class="logo-box">
