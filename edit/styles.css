@@ -151,7 +151,7 @@ padding:40px 30px;
 border-radius:25px;
 display:flex;
 flex-direction:column;
-gap:20px;
+gap:14px; /* 🔥 separación real */
 min-width:320px;
 max-width:400px;
 width:90%;
@@ -178,6 +178,8 @@ color:white;
 font-family:'Orbitron';
 font-size:15px;
 transition:0.2s;
+width:100%; /* 🔥 ocupa todo */
+box-sizing:border-box;
 }
 
 .link-btn:hover{
@@ -196,11 +198,14 @@ height:26px;
 margin-top:10px;
 background:#334155;
 border:none;
-padding:14px;
-border-radius:14px;
+padding:16px;
+border-radius:16px;
 color:white;
 cursor:pointer;
 font-family:'Orbitron';
+width:100%; /* 🔥 ocupa todo */
+text-align:center;
+font-size:16px;
 transition:0.2s;
 }
 
