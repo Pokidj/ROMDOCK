@@ -31,6 +31,33 @@
 
 <div id="app"></div>
 
+<!-- POPUP -->
+<div class="links-popup" id="linksPopup" onclick="closeLinksPopup()">
+<div class="links-box" onclick="event.stopPropagation()">
+<img id="popupLogo" class="popup-logo">
+<div id="linksContainerPopup"></div>
+</div>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal" onclick="closeModal()">
+<div class="modal-box" onclick="event.stopPropagation()">
+<img src="/ROMDOCK/img/default.png" id="modalLogo" class="modal-logo">
+
+<select id="category"></select>
+<input id="newCategory" placeholder="Nueva categoría">
+<input id="name" placeholder="Nombre">
+
+<div class="links-container" id="linksContainer"></div>
+<button class="add-link-btn" onclick="addLinkField()">➕ Añadir enlace</button>
+
+<div class="modal-buttons">
+<button class="btn-primary" onclick="saveItem()">Guardar</button>
+<button class="btn-secondary" onclick="closeModal()">Cancelar</button>
+</div>
+</div>
+</div>
+
 <div id="toast"></div>
 
 <script src="script.js"></script>
