@@ -2,14 +2,10 @@ let data={},draggedItem=null,editTarget=null;
 
 /* LOAD */
 fetch("/ROMDOCK/data.json",{cache:"no-store"})
-.then(r=>{
-if(!r.ok) throw new Error("No carga data.json");
-return r.json();
-})
-.then(j=>{data=j;render();})
-.catch(err=>console.error(err));
+.then(r=>r.json())
+.then(j=>{data=j;render();});
 
-/* LIMPIAR */
+/* LIMPIAR CATEGORÍAS */
 function cleanCategories(){
 Object.keys(data).forEach(c=>{
 if(!data[c]||data[c].length===0) delete data[c];
@@ -22,6 +18,42 @@ const t=document.getElementById("toast");
 t.innerHTML=msg;
 t.style.display="block";
 setTimeout(()=>t.style.display="none",2500);
+}
+
+/* GITHUB */
+async function saveToGitHub(){
+let token=localStorage.getItem("gh_token");
+if(!token){
+token=prompt("Introduce tu GitHub Token:");
+if(!token)return;
+localStorage.setItem("gh_token",token);
+}
+
+showToast("⏳ Guardando...");
+
+try{
+const repo="pokidj/ROMDOCK";
+const path="data.json";
+
+const res=await fetch(`https://api.github.com/repos/${repo}/contents/${path}`,{
+headers:{Authorization:`token ${token}`}
+});
+const file=await res.json();
+
+const content=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
+
+const update=await fetch(`https://api.github.com/repos/${repo}/contents/${path}`,{
+method:"PUT",
+headers:{Authorization:`token ${token}`,"Content-Type":"application/json"},
+body:JSON.stringify({message:"update",content,sha:file.sha})
+});
+
+if(update.ok) showToast("🚀 Guardado correctamente");
+else showToast("❌ Error");
+
+}catch{
+showToast("❌ Error conexión");
+}
 }
 
 /* RENDER */
@@ -66,16 +98,11 @@ app.innerHTML+=html;
 });
 }
 
-/* DRAG & DROP 🔥 */
+/* DRAG */
 function dragStart(e){
-draggedItem={
-section:e.currentTarget.dataset.section,
-name:e.currentTarget.dataset.name
-};
+draggedItem={section:e.currentTarget.dataset.section,name:e.currentTarget.dataset.name};
 }
-
 function dragOver(e){e.preventDefault();}
-
 function dropItem(e){
 e.preventDefault();
 
@@ -129,10 +156,7 @@ ${url.hostname}
 
 document.getElementById("linksPopup").style.display="flex";
 }
-
-function closeLinksPopup(){
-document.getElementById("linksPopup").style.display="none";
-}
+function closeLinksPopup(){document.getElementById("linksPopup").style.display="none";}
 
 /* CRUD */
 function deleteItem(section,name){
@@ -168,17 +192,13 @@ editTarget=null;
 }
 }
 
-function closeModal(){
-document.getElementById("modal").style.display="none";
-}
+function closeModal(){document.getElementById("modal").style.display="none";}
 
 function addLinkField(val=""){
 const c=document.getElementById("linksContainer");
 const d=document.createElement("div");
-
 d.className="link-row";
 d.innerHTML=`<input value="${val}"><button onclick="this.parentElement.remove()">❌</button>`;
-
 c.appendChild(d);
 }
 
@@ -191,9 +211,7 @@ if(newCat) section=newCat;
 const name=document.getElementById("name").value;
 
 const links=[];
-document.querySelectorAll("#linksContainer input").forEach(i=>{
-if(i.value) links.push(i.value);
-});
+document.querySelectorAll("#linksContainer input").forEach(i=>i.value&&links.push(i.value));
 
 if(!data[section]) data[section]=[];
 
@@ -222,13 +240,9 @@ render();
 
 /* FILE */
 function loadClick(){document.getElementById("fileInput").click();}
-
 function loadJSON(e){
 const r=new FileReader();
-r.onload=ev=>{
-data=JSON.parse(ev.target.result);
-render();
-};
+r.onload=ev=>{data=JSON.parse(ev.target.result);render();};
 r.readAsText(e.target.files[0]);
 }
 
@@ -239,6 +253,3 @@ a.href=URL.createObjectURL(blob);
 a.download="data.json";
 a.click();
 }
-
-/* MOCK */
-function saveToGitHub(){}
