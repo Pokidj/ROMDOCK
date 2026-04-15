@@ -164,6 +164,8 @@ function render(){
 
 let draggedSection = null;
 
+function dragOver(e){ e.preventDefault(); }
+
 function dragSectionStart(e,section){
   draggedSection = section;
 }
