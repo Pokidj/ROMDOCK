@@ -3,7 +3,6 @@
     {
       "name": "NES",
       "img": "img/NES.png",
-      "url": "https://www.mediafire.com/file/f3gwi97f3hwwall/950_juegos_traducidos_al_castellano.7z/file",
       "links": [
         "https://romsfun.com/roms/game-boy/",
         "https://romspure.cc/roms/nintendo-game-boy",
@@ -14,7 +13,6 @@
     {
       "name": "SNES",
       "img": "img/SNES.png",
-      "url": "https://archive.org/details/350.-sn-3s.-roms-esp-cd",
       "links": [
         "https://romsfun.com/roms/super-nintendo/",
         "https://romspure.cc/roms/super-nintendo-entertainment-system",
@@ -25,7 +23,6 @@
     {
       "name": "N64",
       "img": "img/N64.png",
-      "url": "https://archive.org/details/ed64m-n64-eu",
       "links": [
         "https://archive.org/details/ed64m-n64-eu",
         "https://romsfun.com/roms/nintendo-64/",
@@ -35,25 +32,24 @@
     },
     {
       "name": "GAMECUBE",
+      "img": "img/GAMECUBE.png",
       "links": [
         "https://romsfun.com/roms/gamecube/",
         "https://romspure.cc/roms/nintendo-gamecube"
-      ],
-      "img": "img/GAMECUBE.png"
+      ]
     },
     {
       "name": "GAMEBOY",
+      "img": "img/GAMEBOY.png",
       "links": [
         "https://romsfun.com/roms/game-boy/",
         "https://romspure.cc/roms/nintendo-game-boy",
         "https://uptoroms.com/roms/gameboy/"
-      ],
-      "img": "img/GAMEBOY.png"
+      ]
     },
     {
       "name": "GAME BOY COLOR",
       "img": "img/GAME BOY COLOR.png",
-      "url": "https://archive.org/details/gbc_20240311",
       "links": [
         "https://archive.org/details/gbc_20240311",
         "https://romsfun.com/roms/game-boy-color/",
@@ -64,7 +60,6 @@
     {
       "name": "Game Boy Advance",
       "img": "img/Game Boy Advance.png",
-      "url": "https://archive.org/details/gba_20240311",
       "links": [
         "https://archive.org/details/gba_20240311",
         "https://romsfun.com/roms/game-boy-advance/",
@@ -74,58 +69,58 @@
     },
     {
       "name": "DS",
+      "img": "img/DS.png",
       "links": [
         "https://nswgame.com/category/ds/",
         "https://romsfun.com/roms/nintendo-ds/",
         "https://romspure.cc/roms/nintendo-ds",
         "https://nswgame.com/category/ds/"
-      ],
-      "img": "img/DS.png"
+      ]
     },
     {
       "name": "3DS",
+      "img": "img/3DS.png",
       "links": [
         "https://romsfun.com/roms/nintendo-3ds/",
         "https://romspure.cc/roms/3ds",
         "https://nswgame.com/category/3ds/"
-      ],
-      "img": "img/3DS.png"
+      ]
     },
     {
       "name": "WII",
+      "img": "img/WII.png",
       "links": [
         "https://romsfun.com/roms/nintendo-wii/",
         "https://romspure.cc/roms/nintendo-wii",
         "https://uptoroms.com/roms/nintendo-wii/",
         "https://nswgame.com/category/game-wii/"
-      ],
-      "img": "img/WII.png"
+      ]
     },
     {
       "name": "WIIU",
+      "img": "img/WIIU.png",
       "links": [
         "https://romsfun.com/roms/wii-u/",
         "https://romspure.cc/roms/wii-u",
         "https://nswgame.com/category/game-wii-u/"
-      ],
-      "img": "img/WIIU.png"
+      ]
     },
     {
       "name": "Nintendo Switch",
       "img": "img/Nintendo Switch.png",
-      "url": "https://www.tendoku.com/",
       "links": [
+        "https://www.tendoku.com/",
         "https://tendoku.com/daftar-game-nintendo-switch/",
         "https://nswgame.com/category/switch/",
         "https://romsns.com/game-roms-list/"
       ]
     }
   ],
+
   "PlayStation": [
     {
       "name": "PS1",
       "img": "img/PS1.png",
-      "url": "https://archive.org/details/PS1_EU_CHD_Arquivista",
       "links": [
         "https://romsfun.com/roms/playstation/",
         "https://romspure.cc/roms/sony-playstation",
@@ -138,7 +133,6 @@
     {
       "name": "PS2",
       "img": "img/PS2.png",
-      "url": "https://archive.org/download/ps2-eu-roms321com/all/",
       "links": [
         "https://romsfun.com/roms/playstation-2/",
         "https://romspure.cc/roms/sony-playstation-2",
@@ -148,7 +142,6 @@
     {
       "name": "PS3",
       "img": "img/PS3.png",
-      "url": "https://vimm.net/vault/PS3",
       "links": [
         "https://romsfun.com/roms/ps3/",
         "https://romspure.cc/roms/sony-playstation-3",
@@ -158,16 +151,15 @@
     },
     {
       "name": "PS4",
+      "img": "img/PS4.png",
       "links": [
         "https://romsfun.com/roms/playstation-4/",
         "https://romspure.cc/roms/sony-playstation-4",
         "https://dlpsgame.com/category/ps4/"
-      ],
-      "img": "img/PS4.png"
+      ]
     },
     {
       "name": "PSP",
-      "url": "https://romspure.cc/roms/sony-psp",
       "img": "img/PSP.png",
       "links": [
         "https://romsfun.com/roms/playstation-portable/",
@@ -178,19 +170,19 @@
     },
     {
       "name": "PSVITA",
+      "img": "img/PSVITA.png",
       "links": [
         "https://romsfun.com/roms/ps-vita/",
         "https://romspure.cc/roms/sony-playstation-vita",
         "https://downloadgamepsp.org/category/psvita-game-free-new/"
-      ],
-      "img": "img/PSVITA.png"
+      ]
     }
   ],
+
   "Xbox": [
     {
       "name": "Microsoft Xbox",
       "img": "img/Microsoft Xbox.png",
-      "url": "https://vimm.net/vault/Xbox",
       "links": [
         "https://romsfun.com/roms/xbox/",
         "https://romspure.cc/roms/microsoft-xbox",
@@ -201,7 +193,6 @@
     {
       "name": "Xbox 360",
       "img": "img/Xbox 360.png",
-      "url": "https://vimm.net/vault/Xbox360",
       "links": [
         "https://romsfun.com/roms/xbox-360/",
         "https://romspure.cc/roms/microsoft-xbox-360",
@@ -210,91 +201,93 @@
       ]
     }
   ],
+
   "SEGA": [
     {
       "name": "Mega Drive",
       "img": "img/Sega Mega Drive.png",
-      "url": "https://archive.org/details/md_20240311"
+      "links": ["https://archive.org/details/md_20240311"]
     },
     {
       "name": "Master System",
       "img": "img/Sega Master System.png",
-      "url": "https://archive.org/details/sms_20240311"
+      "links": ["https://archive.org/details/sms_20240311"]
     },
     {
       "name": "Game Gear",
       "img": "img/Sega Game Gear.png",
-      "url": "https://archive.org/details/gg_20240312"
+      "links": ["https://archive.org/details/gg_20240312"]
     },
     {
       "name": "32X",
       "img": "img/Sega 32X.png",
-      "url": "https://archive.org/details/32x_20240311"
+      "links": ["https://archive.org/details/32x_20240311"]
     },
     {
       "name": "Mega CD",
       "img": "img/Sega Mega-CD.png",
-      "url": "https://archive.org/details/mdcd_20240312"
+      "links": ["https://archive.org/details/mdcd_20240312"]
     },
     {
       "name": "Saturn",
       "img": "img/Sega Saturn.png",
-      "url": "https://archive.org/details/SSCHD-Arquivista"
+      "links": ["https://archive.org/details/SSCHD-Arquivista"]
     },
     {
       "name": "Dreamcast",
       "img": "img/Sega Dreamcast.png",
-      "url": "https://archive.org/details/sega-dreamcast-redump-collection"
+      "links": ["https://archive.org/details/sega-dreamcast-redump-collection"]
     }
   ],
+
   "Otros": [
     {
       "name": "Neo Geo",
       "img": "img/Neo Geo.png",
-      "url": "https://archive.org/details/neogeo_202403"
+      "links": ["https://archive.org/details/neogeo_202403"]
     },
     {
       "name": "Neo Geo Pocket",
       "img": "img/Neo Geo Pocket.png",
-      "url": "https://archive.org/details/ngp_20240322"
+      "links": ["https://archive.org/details/ngp_20240322"]
     },
     {
       "name": "Atomiswave",
       "img": "img/Atomiswave.png",
-      "url": "https://archive.org/details/atomiswave.-7z"
+      "links": ["https://archive.org/details/atomiswave.-7z"]
     },
     {
       "name": "MAME",
       "img": "img/MAME.png",
-      "url": "https://archive.org/details/mame_20240311"
+      "links": ["https://archive.org/details/mame_20240311"]
     },
     {
       "name": "PC Engine",
       "img": "img/PC Engine.png",
-      "url": "https://archive.org/details/pce_20240312"
+      "links": ["https://archive.org/details/pce_20240312"]
     },
     {
       "name": "Atari Lynx",
       "img": "img/Atari Lynx.png",
-      "url": "https://archive.org/details/lynx_20240322"
+      "links": ["https://archive.org/details/lynx_20240322"]
     },
     {
       "name": "PICO-8",
       "img": "img/Pico-8.png",
-      "url": "https://archive.org/details/pico_20240316"
+      "links": ["https://archive.org/details/pico_20240316"]
     },
     {
       "name": "ScummVM",
       "img": "img/ScummVM.png",
-      "url": "https://archive.org/details/mini-romset-scummvm-espanol-42-juegos"
+      "links": ["https://archive.org/details/mini-romset-scummvm-espanol-42-juegos"]
     },
     {
       "name": "PCGAMES",
+      "img": "img/PCGAMES.png",
       "links": [
         "https://gamepciso.com/",
         "https://pgfiles.com/"
-      ],
-      "img": "img/PCGAMES.png"
+      ]
     }
   ]
 }
