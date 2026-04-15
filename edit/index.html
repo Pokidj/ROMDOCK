@@ -240,10 +240,18 @@ function saveItem(){
   if(!data[section]) data[section]=[];
 
   if(editTarget){
-    const item=data[editTarget.section].find(i=>i.name===editTarget.name);
+    const oldSection = editTarget.section;
+    const index = data[oldSection].findIndex(i=>i.name===editTarget.name);
+    const item = data[oldSection][index];
+
     item.name=name;
     item.links=links;
     item.img="img/"+name+".png";
+
+    if(oldSection !== section){
+      data[oldSection].splice(index,1);
+      data[section].push(item);
+    }
   }else{
     data[section].push({name,links,img:"img/"+name+".png"});
   }
