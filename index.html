@@ -8,153 +8,26 @@
 
 <style>
 body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
-
-/* HEADER MÁS FINO */
-.header-wrapper{
-  position:relative;
-  height:130px;
-  overflow:hidden;
-}
-
-.banner{
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:url("img/banner.png") center/cover no-repeat;
-  filter:brightness(0.5);
-}
-
-.main-title{
-  position:relative;
-  text-align:center;
-  padding-top:30px;
-  font-size:52px;
-  font-weight:800;
-  letter-spacing:3px;
-  font-family:'Orbitron', sans-serif;
-}
-
-/* SEARCH */
-.search-container{display:flex; justify-content:flex-start; padding:20px 30px;}
-#searchInput{
-  width:420px;
-  padding:14px;
-  border-radius:14px;
-  border:1px solid #334155;
-  background:#020617;
-  color:white;
-  font-size:16px;
-}
-
-/* CATEGORY */
-.section{
-  margin:10px 0;
-  border-top:1px solid #334155;
-  padding-top:10px;
-}
-
-.section-title{
-  margin:20px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-family:'Orbitron';
-  font-size:24px;
-}
-
+.header-wrapper{position:relative;height:130px;overflow:hidden;}
+.banner{position:absolute;width:100%;height:100%;background:url("img/banner.png") center/cover no-repeat;filter:brightness(0.5);} 
+.main-title{position:relative;text-align:center;padding-top:30px;font-size:52px;font-weight:800;letter-spacing:3px;font-family:'Orbitron', sans-serif;}
+.search-container{display:flex;justify-content:flex-start;padding:20px 30px;}
+#searchInput{width:420px;padding:14px;border-radius:14px;border:1px solid #334155;background:#020617;color:white;font-size:16px;}
+.section{margin:10px 0;border-top:1px solid #334155;padding-top:10px;}
+.section-title{margin:20px;display:flex;align-items:center;gap:10px;font-family:'Orbitron';font-size:24px;}
 .section-title img{width:28px;}
-
-.row{display:flex; gap:15px; padding:20px;}
-
-.card{
-  width:220px; height:220px;
-  background:#1e293b;
-  border-radius:15px;
-  padding:10px;
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:space-between;
-  cursor:pointer;
-  transition:0.2s;
-}
-
-.card.active{
-  outline:2px solid #38bdf8;
-  transform:scale(1.1);
-}
-
-.card:hover{transform:scale(1.08);}
-
-.logo-box{height:90px; display:flex; align-items:center; justify-content:center;}
-.logo-box img{max-width:100%; max-height:100%;}
-
-/* POPUP MEJORADO */
-.modal{
-  position:fixed; top:0; left:0;
-  width:100%; height:100%;
-  background:rgba(0,0,0,0.75);
-  display:none; align-items:center; justify-content:center;
-}
-
-.modal-box{
-  background:linear-gradient(145deg,#1e293b,#020617);
-  padding:25px;
-  border-radius:20px;
-  width:340px;
-  text-align:center;
-  box-shadow:0 0 30px rgba(0,0,0,0.6);
-  animation:zoomIn .25s;
-}
-
-.popup-logo{
-  width:80px;
-  margin-bottom:10px;
-}
-
-.popup-title{
-  font-family:'Orbitron';
-  font-size:22px;
-  margin-bottom:15px;
-}
-
-/* BOTONES LINKS BONITOS */
-.link-btn{
-  width:100%;
-  margin:6px 0;
-  padding:12px;
-  border:none;
-  border-radius:12px;
-  background:linear-gradient(145deg,#334155,#1e293b);
-  color:white;
-  cursor:pointer;
-  transition:0.2s;
-}
-
-.link-btn:hover{
-  transform:scale(1.05);
-  background:#475569;
-}
-
-.btn-close{
-  width:100%;
-  margin-top:12px;
-  padding:10px;
-  border:none;
-  border-radius:10px;
-  background:#475569;
-  color:white;
-}
-
-@keyframes zoomIn{
-  from{transform:scale(.8);opacity:0;}
-  to{transform:scale(1);opacity:1;}
-}
-
-.footer{
-  text-align:center;
-  padding:20px;
-  font-size:12px;
-  color:#64748b;
-}
+.row{display:flex;gap:15px;padding:20px;flex-wrap:wrap;}
+.card{width:220px;height:220px;background:#1e293b;border-radius:15px;padding:10px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;cursor:pointer;transition:0.2s;}
+.card.active{outline:2px solid #38bdf8;transform:scale(1.1);} 
+.card:hover{transform:scale(1.08);} 
+.logo-box{height:90px;display:flex;align-items:center;justify-content:center;}
+.logo-box img{max-width:100%;max-height:100%;}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);display:none;align-items:center;justify-content:center;}
+.modal-box{background:linear-gradient(145deg,#1e293b,#020617);padding:25px;border-radius:20px;width:340px;text-align:center;box-shadow:0 0 30px rgba(0,0,0,0.6);}
+.popup-logo{width:80px;margin-bottom:10px;}
+.link-btn{width:100%;margin:6px 0;padding:12px;border:none;border-radius:12px;background:linear-gradient(145deg,#334155,#1e293b);color:white;cursor:pointer;}
+.btn-close{width:100%;margin-top:12px;padding:10px;border:none;border-radius:10px;background:#475569;color:white;}
+.footer{text-align:center;padding:20px;font-size:12px;color:#64748b;}
 </style>
 </head>
 
@@ -174,7 +47,7 @@ body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
 <div id="popup" class="modal" onclick="outsideClick(event)">
   <div class="modal-box">
     <img id="popupLogo" class="popup-logo" src="img/default.png">
-        <div id="popupLinks"></div>
+    <div id="popupLinks"></div>
     <button class="btn-close" onclick="closePopup()">Cerrar</button>
   </div>
 </div>
@@ -182,15 +55,24 @@ body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
 <div class="footer">© pokidj</div>
 
 <script>
-
 let data = {};
 let cards = [];
 let currentIndex = 0;
 
-fetch("data.json").then(r=>r.json()).then(j=>{
-  data=j;
-  render();
-});
+// FETCH ROBUSTO (SOLUCIONADO)
+fetch("./data.json", { cache: "no-store" })
+  .then(r => {
+    if (!r.ok) throw new Error("No se pudo cargar data.json");
+    return r.json();
+  })
+  .then(j => {
+    data = j;
+    render();
+  })
+  .catch(err => {
+    console.error("ERROR cargando JSON:", err);
+    document.getElementById("app").innerHTML = "<h2 style='padding:20px'>Error cargando datos</h2>";
+  });
 
 function render(){
   const app=document.getElementById("app");
@@ -208,7 +90,7 @@ function render(){
     data[section].forEach(item=>{
       html+=`<div class="card" onclick="openLinks('${section}','${item.name}')">
         <div class="logo-box">
-          <img src="${item.img}" onerror="this.src='img/default.png'">
+          <img src="${encodeURI(item.img)}" onerror="this.src='img/default.png'">
         </div>
         <h3>${item.name}</h3>
       </div>`;
@@ -229,34 +111,20 @@ function setActive(i){
   currentIndex=i;
 }
 
-document.addEventListener("keydown",e=>{
-  if(e.key==="ArrowRight") setActive(currentIndex+1);
-  if(e.key==="ArrowLeft") setActive(currentIndex-1);
-  if(e.key==="ArrowDown") setActive(currentIndex+4);
-  if(e.key==="ArrowUp") setActive(currentIndex-4);
-  if(e.key==="Enter") cards[currentIndex]?.click();
-  if(e.key==="Escape") closePopup();
-});
-
 function getDomainName(url){
   try{
     const u = new URL(url);
     return u.hostname.replace("www.","").split(".")[0];
-  }catch{
-    return url;
-  }
+  }catch{return url;}
 }
 
 function openLinks(section,name){
   const item=data[section].find(i=>i.name===name);
   const links=item.links||[item.url];
 
-  if(links.length===1){
-    window.open(links[0]);
-    return;
-  }
+  if(links.length===1){window.open(links[0]);return;}
 
-    document.getElementById("popupLogo").src=item.img || "img/default.png";
+  document.getElementById("popupLogo").src=encodeURI(item.img)||"img/default.png";
 
   const box=document.getElementById("popupLinks");
   box.innerHTML="";
@@ -264,10 +132,7 @@ function openLinks(section,name){
   links.forEach(l=>{
     const b=document.createElement("button");
     b.className="link-btn";
-
-    const label = getDomainName(l);
-    b.textContent = "🌐 " + label;
-
+    b.textContent = "🌐 " + getDomainName(l);
     b.onclick=()=>window.open(l);
     box.appendChild(b);
   });
@@ -275,13 +140,8 @@ function openLinks(section,name){
   document.getElementById("popup").style.display="flex";
 }
 
-function closePopup(){
-  document.getElementById("popup").style.display="none";
-}
-
-function outsideClick(e){
-  if(e.target.id==="popup") closePopup();
-}
+function closePopup(){document.getElementById("popup").style.display="none";}
+function outsideClick(e){if(e.target.id==="popup") closePopup();}
 
 function filter(){
   const val=document.getElementById("searchInput").value.toLowerCase();
@@ -304,7 +164,6 @@ function filter(){
     section.style.display = visible ? "block" : "none";
   });
 }
-
 </script>
 
 </body>
