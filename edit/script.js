@@ -21,7 +21,11 @@ setTimeout(()=>t.style.display="none",4000);
 }
 
 /* GITHUB */
-async function saveToGitHub(){
+function saveToGitHub(){
+
+showConfirm("¿Estás seguro de guardar los cambios en GitHub?", async (ok)=>{
+if(!ok) return;
+
 let token=localStorage.getItem("gh_token");
 
 if(!token){
@@ -29,12 +33,7 @@ token=prompt("Introduce tu GitHub Token:");
 if(!token)return;
 localStorage.setItem("gh_token",token);
 }
-/* 🔥 CONFIRMACIÓN */
-if(!confirm("¿Estás seguro de guardar los cambios en GitHub?")){
-return;
-}
 
-/* 🔥 MENSAJE INICIAL */
 showToast("⏳ Guardando en GitHub...\nPuede tardar unos segundos");
 
 try{
@@ -61,7 +60,6 @@ sha:file.sha
 })
 });
 
-/* 🔥 MENSAJE FINAL PRO */
 if(update.ok){
 showToast("✅ Guardado correctamente\n🌐 Puede tardar unos segundos en verse en la web");
 }else{
@@ -72,6 +70,8 @@ showToast("❌ Error al guardar en GitHub");
 console.error(e);
 showToast("❌ Error de conexión con GitHub");
 }
+
+});
 }
 
 /* RENDER */
@@ -297,4 +297,16 @@ const a=document.createElement("a");
 a.href=URL.createObjectURL(blob);
 a.download="data.json";
 a.click();
+}
+let confirmCallback=null;
+
+function showConfirm(message, callback){
+document.getElementById("confirmText").innerText=message;
+document.getElementById("confirmModal").style.display="flex";
+confirmCallback=callback;
+}
+
+function closeConfirm(result){
+document.getElementById("confirmModal").style.display="none";
+if(confirmCallback) confirmCallback(result);
 }
