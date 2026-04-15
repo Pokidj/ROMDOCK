@@ -161,6 +161,11 @@ ${url.hostname}
 </a>`;
 });
 
+/* 🔥 BOTÓN CERRAR */
+box.innerHTML+=`
+<button class="popup-close" onclick="closeLinksPopup()">Cerrar</button>
+`;
+
 document.getElementById("linksPopup").style.display="flex";
 }
 
