@@ -134,9 +134,55 @@ function render(){
   app.innerHTML="";
 
   Object.keys(data).forEach(section=>{
-    let html=`<div class="section">
+    let html=`<div class="section" draggable="true"
+      ondragstart="dragSectionStart(event,'${section}')"
+      ondragover="dragOver(event)"
+      ondrop="dropSection(event,'${section}')">
       <div class="section-title">
         <img src="../img/${section}.png" onerror="this.src='../img/default.png'">
+        ${section}
+      </div>
+      <div class="row">`;
+
+    data[section].forEach(item=>{
+      html+=`<div class="card" onclick="openModal('${section}','${item.name}')">
+        <div class="card-actions">
+          <button class="icon-btn" onclick="event.stopPropagation();openModal('${section}','${item.name}')">✏️</button>
+          <button class="icon-btn" onclick="event.stopPropagation();deleteItem('${section}','${item.name}')">🗑️</button>
+        </div>
+        <div class="logo-box">
+          <img src="../${encodeURI(item.img)}" onerror="this.src='../img/default.png'">
+        </div>
+        <h3>${item.name}</h3>
+      </div>`;
+    });
+
+    html+="</div></div>";
+    app.innerHTML+=html;
+  });
+}
+
+let draggedSection = null;
+
+function dragSectionStart(e,section){
+  draggedSection = section;
+}
+
+function dropSection(e,targetSection){
+  e.preventDefault();
+  if(!draggedSection || draggedSection===targetSection) return;
+
+  const keys = Object.keys(data);
+  const from = keys.indexOf(draggedSection);
+  const to = keys.indexOf(targetSection);
+
+  const entries = Object.entries(data);
+  const [moved] = entries.splice(from,1);
+  entries.splice(to,0,moved);
+
+  data = Object.fromEntries(entries);
+  render();
+}.png" onerror="this.src='../img/default.png'">
         ${section}
       </div>
       <div class="row">`;
