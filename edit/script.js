@@ -5,7 +5,7 @@ fetch("/ROMDOCK/data.json",{cache:"no-store"})
 .then(r=>r.json())
 .then(j=>{data=j;render();});
 
-/* LIMPIAR */
+/* LIMPIAR CATEGORÍAS */
 function cleanCategories(){
 Object.keys(data).forEach(c=>{
 if(!data[c]||data[c].length===0) delete data[c];
@@ -42,13 +42,14 @@ const file=await res.json();
 
 const content=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
 
-await fetch(`https://api.github.com/repos/${repo}/contents/${path}`,{
+const update=await fetch(`https://api.github.com/repos/${repo}/contents/${path}`,{
 method:"PUT",
 headers:{Authorization:`token ${token}`,"Content-Type":"application/json"},
 body:JSON.stringify({message:"update",content,sha:file.sha})
 });
 
-showToast("🚀 Guardado correctamente");
+if(update.ok) showToast("🚀 Guardado correctamente");
+else showToast("❌ Error");
 
 }catch{
 showToast("❌ Error conexión");
@@ -101,7 +102,9 @@ app.innerHTML+=html;
 function dragStart(e){
 draggedItem={section:e.currentTarget.dataset.section,name:e.currentTarget.dataset.name};
 }
+
 function dragOver(e){e.preventDefault();}
+
 function dropItem(e){
 e.preventDefault();
 
@@ -118,8 +121,10 @@ list.splice(to,0,m);
 }else{
 const s=data[sourceSection];
 const t=data[targetSection];
-const [m]=s.splice(s.findIndex(i=>i.name===draggedItem.name),1);
-t.splice(t.findIndex(i=>i.name===targetName),0,m);
+const from=s.findIndex(i=>i.name===draggedItem.name);
+const to=t.findIndex(i=>i.name===targetName);
+const [m]=s.splice(from,1);
+t.splice(to,0,m);
 draggedItem.section=targetSection;
 }
 
@@ -132,7 +137,7 @@ const item=data[section].find(i=>i.name===name);
 if(!item || !item.links) return;
 
 if(item.links.length===1){
-window.open(item.links[0], "_blank");
+window.open(item.links[0],"_blank");
 }else{
 showLinksPopup(item);
 }
@@ -174,6 +179,8 @@ function openModal(section=null,name=null){
 document.getElementById("modal").style.display="flex";
 
 const select=document.getElementById("category");
+const newCat=document.getElementById("newCategory");
+
 select.innerHTML="";
 Object.keys(data).forEach(c=>select.innerHTML+=`<option>${c}</option>`);
 
@@ -189,16 +196,22 @@ select.value=section;
 
 item.links.forEach(l=>addLinkField(l));
 
+newCat.style.display="none"; // 🔥 ocultar en editar
+
 editTarget={section,name};
 }else{
 document.getElementById("modalLogo").src="/ROMDOCK/img/default.png";
 document.getElementById("name").value="";
+newCat.style.display="block"; // 🔥 mostrar en crear
+
 addLinkField();
 editTarget=null;
 }
 }
 
-function closeModal(){document.getElementById("modal").style.display="none";}
+function closeModal(){
+document.getElementById("modal").style.display="none";
+}
 
 function addLinkField(val=""){
 const c=document.getElementById("linksContainer");
@@ -210,6 +223,7 @@ c.appendChild(d);
 
 function saveItem(){
 let section=document.getElementById("category").value;
+
 const newCat=document.getElementById("newCategory").value.trim();
 if(newCat) section=newCat;
 
@@ -247,6 +261,7 @@ render();
 
 /* FILE */
 function loadClick(){document.getElementById("fileInput").click();}
+
 function loadJSON(e){
 const r=new FileReader();
 r.onload=ev=>{data=JSON.parse(ev.target.result);render();};
