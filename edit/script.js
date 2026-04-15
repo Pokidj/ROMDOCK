@@ -5,6 +5,38 @@ fetch("/ROMDOCK/data.json",{cache:"no-store"})
 .then(r=>r.json())
 .then(j=>{data=j;render();});
 
+/* normalizeData */
+function normalizeData(){
+
+const newData={};
+
+Object.keys(data).forEach(section=>{
+
+newData[section]=data[section].map(item=>{
+
+let links=item.links || [];
+
+/* 🔥 si solo tiene url */
+if((!links || links.length===0) && item.url){
+links=[item.url];
+}
+
+/* 🔥 eliminar duplicados */
+links=[...new Set(links)];
+
+return {
+name:item.name,
+img:item.img,
+links:links
+};
+
+});
+
+});
+
+return newData;
+}
+
 /* LIMPIAR CATEGORÍAS */
 function cleanCategories(){
 Object.keys(data).forEach(c=>{
@@ -45,7 +77,11 @@ headers:{Authorization:`token ${token}`}
 });
 const file=await res.json();
 
-const content=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
+const cleanData = normalizeData();
+
+const content = btoa(
+unescape(encodeURIComponent(JSON.stringify(cleanData,null,2)))
+);
 
 const update=await fetch(`https://api.github.com/repos/${repo}/contents/${path}`,{
 method:"PUT",
@@ -292,7 +328,10 @@ r.readAsText(e.target.files[0]);
 }
 
 function saveJSON(){
-const blob=new Blob([JSON.stringify(data,null,2)]);
+
+const cleanData = normalizeData();
+
+const blob=new Blob([JSON.stringify(cleanData,null,2)]);
 const a=document.createElement("a");
 a.href=URL.createObjectURL(blob);
 a.download="data.json";
