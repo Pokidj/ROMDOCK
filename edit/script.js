@@ -5,7 +5,7 @@ fetch("/ROMDOCK/data.json",{cache:"no-store"})
 .then(r=>r.json())
 .then(j=>{data=j;render();});
 
-/* LIMPIAR CATEGORÍAS */
+/* LIMPIAR */
 function cleanCategories(){
 Object.keys(data).forEach(c=>{
 if(!data[c]||data[c].length===0) delete data[c];
@@ -42,14 +42,13 @@ const file=await res.json();
 
 const content=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
 
-const update=await fetch(`https://api.github.com/repos/${repo}/contents/${path}`,{
+await fetch(`https://api.github.com/repos/${repo}/contents/${path}`,{
 method:"PUT",
 headers:{Authorization:`token ${token}`,"Content-Type":"application/json"},
 body:JSON.stringify({message:"update",content,sha:file.sha})
 });
 
-if(update.ok) showToast("🚀 Guardado correctamente");
-else showToast("❌ Error");
+showToast("🚀 Guardado correctamente");
 
 }catch{
 showToast("❌ Error conexión");
@@ -102,9 +101,7 @@ app.innerHTML+=html;
 function dragStart(e){
 draggedItem={section:e.currentTarget.dataset.section,name:e.currentTarget.dataset.name};
 }
-
 function dragOver(e){e.preventDefault();}
-
 function dropItem(e){
 e.preventDefault();
 
@@ -121,10 +118,8 @@ list.splice(to,0,m);
 }else{
 const s=data[sourceSection];
 const t=data[targetSection];
-const from=s.findIndex(i=>i.name===draggedItem.name);
-const to=t.findIndex(i=>i.name===targetName);
-const [m]=s.splice(from,1);
-t.splice(to,0,m);
+const [m]=s.splice(s.findIndex(i=>i.name===draggedItem.name),1);
+t.splice(t.findIndex(i=>i.name===targetName),0,m);
 draggedItem.section=targetSection;
 }
 
@@ -134,8 +129,13 @@ render();
 /* CLICK */
 function handleClick(section,name){
 const item=data[section].find(i=>i.name===name);
-if(item.links.length===1) window.open(item.links[0],"_blank");
-else showLinksPopup(item);
+if(!item || !item.links) return;
+
+if(item.links.length===1){
+window.open(item.links[0], "_blank");
+}else{
+showLinksPopup(item);
+}
 }
 
 /* POPUP */
@@ -169,6 +169,7 @@ data[section]=data[section].filter(i=>i.name!==name);
 render();
 }
 
+/* MODAL */
 function openModal(section=null,name=null){
 document.getElementById("modal").style.display="flex";
 
@@ -209,14 +210,15 @@ c.appendChild(d);
 
 function saveItem(){
 let section=document.getElementById("category").value;
-
 const newCat=document.getElementById("newCategory").value.trim();
 if(newCat) section=newCat;
 
 const name=document.getElementById("name").value;
 
 const links=[];
-document.querySelectorAll("#linksContainer input").forEach(i=>i.value&&links.push(i.value));
+document.querySelectorAll("#linksContainer input").forEach(i=>{
+if(i.value) links.push(i.value);
+});
 
 if(!data[section]) data[section]=[];
 
@@ -245,7 +247,6 @@ render();
 
 /* FILE */
 function loadClick(){document.getElementById("fileInput").click();}
-
 function loadJSON(e){
 const r=new FileReader();
 r.onload=ev=>{data=JSON.parse(ev.target.result);render();};
