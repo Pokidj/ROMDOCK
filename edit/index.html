@@ -122,12 +122,13 @@ let data = {};
 let draggedItem = null;
 let editTarget = null;
 
-// 🔥 CARGA AUTOMÁTICA + manual sigue funcionando
-fetch("../data.json",{cache:"no-store"})
-.then(r=>r.json())
-.then(j=>{data=j; render();})
-.catch(()=>{});
+// ✅ CARGA AUTOMÁTICA (sin romper carga manual)
+fetch("../data.json", { cache: "no-store" })
+  .then(r => r.json())
+  .then(j => { data = j; render(); })
+  .catch(() => {});
 
+// ✅ CARGA MANUAL (tuya, intacta)
 function loadJSON(e){
   const r = new FileReader();
   r.onload = ev => { data = JSON.parse(ev.target.result); render(); };
