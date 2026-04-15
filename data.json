@@ -116,7 +116,6 @@
       ]
     }
   ],
-
   "PlayStation": [
     {
       "name": "PS1",
@@ -178,7 +177,6 @@
       ]
     }
   ],
-
   "Xbox": [
     {
       "name": "Microsoft Xbox",
@@ -201,85 +199,113 @@
       ]
     }
   ],
-
   "SEGA": [
     {
       "name": "Mega Drive",
       "img": "img/Sega Mega Drive.png",
-      "links": ["https://archive.org/details/md_20240311"]
+      "links": [
+        "https://archive.org/details/md_20240311"
+      ]
     },
     {
       "name": "Master System",
       "img": "img/Sega Master System.png",
-      "links": ["https://archive.org/details/sms_20240311"]
+      "links": [
+        "https://archive.org/details/sms_20240311"
+      ]
     },
     {
       "name": "Game Gear",
       "img": "img/Sega Game Gear.png",
-      "links": ["https://archive.org/details/gg_20240312"]
+      "links": [
+        "https://archive.org/details/gg_20240312"
+      ]
     },
     {
       "name": "32X",
       "img": "img/Sega 32X.png",
-      "links": ["https://archive.org/details/32x_20240311"]
+      "links": [
+        "https://archive.org/details/32x_20240311"
+      ]
     },
     {
       "name": "Mega CD",
       "img": "img/Sega Mega-CD.png",
-      "links": ["https://archive.org/details/mdcd_20240312"]
+      "links": [
+        "https://archive.org/details/mdcd_20240312"
+      ]
     },
     {
       "name": "Saturn",
       "img": "img/Sega Saturn.png",
-      "links": ["https://archive.org/details/SSCHD-Arquivista"]
+      "links": [
+        "https://archive.org/details/SSCHD-Arquivista"
+      ]
     },
     {
       "name": "Dreamcast",
       "img": "img/Sega Dreamcast.png",
-      "links": ["https://archive.org/details/sega-dreamcast-redump-collection"]
+      "links": [
+        "https://archive.org/details/sega-dreamcast-redump-collection"
+      ]
     }
   ],
-
   "Otros": [
     {
       "name": "Neo Geo",
       "img": "img/Neo Geo.png",
-      "links": ["https://archive.org/details/neogeo_202403"]
+      "links": [
+        "https://archive.org/details/neogeo_202403"
+      ]
     },
     {
       "name": "Neo Geo Pocket",
       "img": "img/Neo Geo Pocket.png",
-      "links": ["https://archive.org/details/ngp_20240322"]
+      "links": [
+        "https://archive.org/details/ngp_20240322"
+      ]
     },
     {
       "name": "Atomiswave",
       "img": "img/Atomiswave.png",
-      "links": ["https://archive.org/details/atomiswave.-7z"]
+      "links": [
+        "https://archive.org/details/atomiswave.-7z"
+      ]
     },
     {
       "name": "MAME",
       "img": "img/MAME.png",
-      "links": ["https://archive.org/details/mame_20240311"]
+      "links": [
+        "https://archive.org/details/mame_20240311"
+      ]
     },
     {
       "name": "PC Engine",
       "img": "img/PC Engine.png",
-      "links": ["https://archive.org/details/pce_20240312"]
+      "links": [
+        "https://archive.org/details/pce_20240312"
+      ]
     },
     {
       "name": "Atari Lynx",
       "img": "img/Atari Lynx.png",
-      "links": ["https://archive.org/details/lynx_20240322"]
+      "links": [
+        "https://archive.org/details/lynx_20240322"
+      ]
     },
     {
       "name": "PICO-8",
       "img": "img/Pico-8.png",
-      "links": ["https://archive.org/details/pico_20240316"]
+      "links": [
+        "https://archive.org/details/pico_20240316"
+      ]
     },
     {
       "name": "ScummVM",
       "img": "img/ScummVM.png",
-      "links": ["https://archive.org/details/mini-romset-scummvm-espanol-42-juegos"]
+      "links": [
+        "https://archive.org/details/mini-romset-scummvm-espanol-42-juegos"
+      ]
     },
     {
       "name": "PCGAMES",
