@@ -315,14 +315,5 @@
         "https://pgfiles.com/"
       ]
     }
-  ],
-  "test": [
-    {
-      "name": "PS1",
-      "img": "img/PS1.png",
-      "links": [
-        "aaa"
-      ]
-    }
   ]
 }
