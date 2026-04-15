@@ -296,14 +296,5 @@
       ],
       "img": "img/PCGAMES.png"
     }
-  ],
-  "test": [
-    {
-      "name": "aa",
-      "links": [
-        "aa"
-      ],
-      "img": "img/aa.png"
-    }
   ]
 }
