@@ -10,25 +10,26 @@
 <style>
 body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
 
-.header-wrapper{position:relative;height:130px;}
-.banner{position:absolute;width:100%;height:100%;background:url("../img/banner.png") center/cover no-repeat;filter:brightness(0.5);}
-.main-title{position:relative;text-align:center;padding-top:30px;font-size:52px;font-family:'Orbitron';}
+.header-wrapper{height:130px;position:relative;}
+.banner{position:absolute;width:100%;height:100%;background:url("../img/banner.png") center/cover no-repeat;filter:brightness(.5);}
+.main-title{text-align:center;padding-top:30px;font-size:52px;font-family:'Orbitron';}
 
 .topbar{display:flex;align-items:center;padding:15px;}
-.topbar button{
-  background:#1e293b;color:white;border:none;
-  padding:10px 14px;border-radius:10px;cursor:pointer;
-  font-family:'Orbitron';
-}
+.topbar button{background:#1e293b;color:white;border:none;padding:10px;border-radius:10px;cursor:pointer;font-family:'Orbitron';}
 .topbar-right{margin-left:auto;display:flex;gap:10px;}
 
-.section-title{margin:20px;font-family:'Orbitron';}
+.section-title{
+  display:flex;align-items:center;gap:10px;
+  margin:20px;font-family:'Orbitron';font-size:22px;
+}
+.section-title img{width:30px;}
+
 .row{display:flex;gap:15px;padding:20px;flex-wrap:wrap;}
 
 .card{
-  width:220px;height:220px;background:#1e293b;border-radius:15px;padding:10px;
-  display:flex;flex-direction:column;align-items:center;justify-content:space-between;
-  cursor:pointer;position:relative;
+width:220px;height:220px;background:#1e293b;border-radius:15px;padding:10px;
+display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+cursor:pointer;position:relative;
 }
 .card:hover{transform:scale(1.05);}
 
@@ -40,41 +41,30 @@ body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
 .logo-box{height:90px;display:flex;align-items:center;}
 .logo-box img{max-width:100%;max-height:100%;}
 
-/* POPUP LINKS */
+/* POPUP */
 .links-popup{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  background:rgba(0,0,0,0.8);
-  display:none;align-items:center;justify-content:center;
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:#000c;display:none;align-items:center;justify-content:center;
 }
 
 .links-box{
-  background:#020617;
-  padding:30px;
-  border-radius:20px;
-  display:flex;
-  flex-direction:column;
-  gap:15px;
-  min-width:300px;
+background:#020617;padding:30px;border-radius:20px;
+display:flex;flex-direction:column;gap:15px;min-width:320px;
 }
+
+.popup-logo{width:100px;margin:auto;}
 
 .link-btn{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  background:#1e293b;
-  padding:15px;
-  border-radius:12px;
-  text-decoration:none;
-  color:white;
-  font-family:'Orbitron';
-  font-size:16px;
+display:flex;align-items:center;gap:10px;
+background:#1e293b;padding:15px;border-radius:12px;
+text-decoration:none;color:white;font-family:'Orbitron';
+font-size:16px;
 }
 
-.link-btn img{width:24px;height:24px;}
+.link-btn img{width:28px;}
 
-.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:#0008;display:none;align-items:center;justify-content:center;}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:#000c;display:none;align-items:center;justify-content:center;}
 .modal-box{background:#1e293b;padding:20px;border-radius:15px;width:400px;display:flex;flex-direction:column;gap:10px;}
-.modal-box input,.modal-box select{padding:10px;border-radius:10px;border:none;background:#020617;color:white;}
 
 #toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#020617;padding:20px;border-radius:15px;display:none;}
 </style>
@@ -89,21 +79,27 @@ body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
 
 <div class="topbar">
 <button onclick="openModal()">➕ Añadir consola</button>
+
 <div class="topbar-right">
 <button onclick="loadClick()">📁</button>
 <button onclick="saveJSON()">💾</button>
 <button onclick="saveToGitHub()">💾 GITHUB</button>
 </div>
+
 <input type="file" id="fileInput" style="display:none" onchange="loadJSON(event)">
 </div>
 
 <div id="app"></div>
 
-<!-- POPUP LINKS -->
+<!-- POPUP -->
 <div class="links-popup" id="linksPopup" onclick="this.style.display='none'">
-  <div class="links-box" onclick="event.stopPropagation()" id="linksContainerPopup"></div>
+  <div class="links-box" onclick="event.stopPropagation()">
+    <img id="popupLogo" class="popup-logo">
+    <div id="linksContainerPopup"></div>
+  </div>
 </div>
 
+<!-- MODAL -->
 <div class="modal" id="modal">
 <div class="modal-box">
 <select id="category"></select>
@@ -118,36 +114,33 @@ body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
 <div id="toast"></div>
 
 <script>
-let data={},editTarget=null;
+let data={},draggedItem=null,editTarget=null;
 
 fetch("../data.json").then(r=>r.json()).then(j=>{data=j;render();});
 
 function handleClick(section,name){
   const item=data[section].find(i=>i.name===name);
-
-  if(!item) return;
-
   if(item.links.length===1){
     window.open(item.links[0],"_blank");
   }else{
-    showLinksPopup(item.links);
+    showLinksPopup(item);
   }
 }
 
-function showLinksPopup(links){
+function showLinksPopup(item){
+  document.getElementById("popupLogo").src="../"+item.img;
   const box=document.getElementById("linksContainerPopup");
   box.innerHTML="";
 
-  links.forEach(link=>{
+  item.links.forEach(link=>{
     const url=new URL(link);
     const favicon=`https://www.google.com/s2/favicons?domain=${url.hostname}&sz=64`;
 
     box.innerHTML+=`
-      <a class="link-btn" href="${link}" target="_blank">
-        <img src="${favicon}">
-        ${url.hostname}
-      </a>
-    `;
+    <a class="link-btn" href="${link}" target="_blank">
+      <img src="${favicon}">
+      ${url.hostname}
+    </a>`;
   });
 
   document.getElementById("linksPopup").style.display="flex";
@@ -160,15 +153,34 @@ function render(){
   Object.keys(data).forEach(section=>{
     if(!data[section]||data[section].length===0)return;
 
-    let html=`<div class="section"><div class="section-title">${section}</div><div class="row">`;
+    let html=`
+    <div class="section">
+      <div class="section-title">
+        <img src="../img/${section}.png" onerror="this.src='../img/default.png'">
+        ${section}
+      </div>
+      <div class="row">`;
 
     data[section].forEach(item=>{
-      html+=`<div class="card" onclick='handleClick(${JSON.stringify(section)},${JSON.stringify(item.name)})'>
+      html+=`
+      <div class="card"
+        draggable="true"
+        ondragstart="dragStart(event)"
+        ondragover="dragOver(event)"
+        ondrop="dropItem(event)"
+        data-section="${section}"
+        data-name="${item.name}"
+        onclick='handleClick(${JSON.stringify(section)},${JSON.stringify(item.name)})'>
+
         <div class="card-actions">
           <button class="icon-btn" onclick='event.stopPropagation();openModal(${JSON.stringify(section)},${JSON.stringify(item.name)})'>✏️</button>
           <button class="icon-btn" onclick='event.stopPropagation();deleteItem(${JSON.stringify(section)},${JSON.stringify(item.name)})'>🗑️</button>
         </div>
-        <div class="logo-box"><img src="../${item.img}"></div>
+
+        <div class="logo-box">
+          <img src="../${item.img}">
+        </div>
+
         <h3>${item.name}</h3>
       </div>`;
     });
@@ -176,6 +188,41 @@ function render(){
     html+="</div></div>";
     app.innerHTML+=html;
   });
+}
+
+function dragStart(e){
+  draggedItem={section:e.currentTarget.dataset.section,name:e.currentTarget.dataset.name};
+}
+
+function dragOver(e){e.preventDefault();}
+
+function dropItem(e){
+  e.preventDefault();
+  const tSec=e.currentTarget.dataset.section;
+  const tName=e.currentTarget.dataset.name;
+  const sSec=draggedItem.section;
+
+  if(sSec===tSec){
+    const list=data[tSec];
+    const from=list.findIndex(i=>i.name===draggedItem.name);
+    const to=list.findIndex(i=>i.name===tName);
+    const [m]=list.splice(from,1);
+    list.splice(to,0,m);
+  }else{
+    const s=data[sSec];
+    const t=data[tSec];
+    const from=s.findIndex(i=>i.name===draggedItem.name);
+    const to=t.findIndex(i=>i.name===tName);
+    const [m]=s.splice(from,1);
+    t.splice(to,0,m);
+    draggedItem.section=tSec;
+  }
+  render();
+}
+
+function deleteItem(section,name){
+  data[section]=data[section].filter(i=>i.name!==name);
+  render();
 }
 </script>
 
