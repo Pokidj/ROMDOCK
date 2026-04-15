@@ -1,17 +1,83 @@
 body {font-family:'Segoe UI'; background:#0f172a; color:white; margin:0;}
 
-/* HEADER */
 .header-wrapper{position:relative;height:140px;}
 .banner{
-position:absolute;
-width:100%;
-height:100%;
+position:absolute;width:100%;height:100%;
 background:url("/ROMDOCK/img/banner.png") center/cover no-repeat;
 filter:brightness(0.4);
 }
-.main-title{position:relative;text-align:center;padding-top:40px;font-size:52px;font-family:'Orbitron';}
+.main-title{position:relative;text-align:center;padding-top:40px;font-size:52px;font-family:'Orbitron';letter-spacing:3px;}
 
-/* TOPBAR */
 .topbar{display:flex;align-items:center;padding:15px;}
-.topbar button{background:#1e293b;color:white;border:none;padding:10px;border-radius:12px;cursor:pointer;}
+.topbar button{background:#1e293b;color:white;border:none;padding:10px 16px;border-radius:12px;cursor:pointer;font-family:'Orbitron';}
 .topbar-right{margin-left:auto;display:flex;gap:10px;}
+
+.section{border-top:1px solid #334155;margin-top:20px;padding-top:10px;}
+.section-title{display:flex;align-items:center;gap:10px;margin:20px;font-family:'Orbitron';font-size:22px;}
+.section-title img{width:30px;}
+
+.row{display:flex;gap:15px;padding:20px;flex-wrap:wrap;}
+
+.card{
+width:220px;height:220px;background:#1e293b;border-radius:15px;padding:10px;
+display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+cursor:pointer;position:relative;transition:.2s;
+}
+.card:hover{transform:scale(1.07);}
+
+.card-actions{position:absolute;top:8px;right:8px;display:flex;gap:5px;opacity:0;}
+.card:hover .card-actions{opacity:1;}
+
+.icon-btn{width:28px;height:28px;border:none;border-radius:8px;background:#0008;color:white;cursor:pointer;}
+
+.logo-box{height:90px;display:flex;align-items:center;justify-content:center;}
+.logo-box img{max-width:100%;max-height:100%;}
+
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);display:none;align-items:center;justify-content:center;}
+
+.modal-box{
+background:linear-gradient(145deg,#1e293b,#020617);
+padding:30px;border-radius:20px;width:420px;
+display:flex;flex-direction:column;gap:14px;
+}
+
+.modal-logo{width:90px;margin:auto;}
+
+.modal-box input,.modal-box select{
+width:100%;background:#020617;color:white;
+border:1px solid #334155;padding:12px;border-radius:12px;
+}
+
+.links-container{display:flex;flex-direction:column;gap:6px;}
+.link-row{display:flex;gap:6px;}
+.link-row input{flex:1;}
+
+.add-link-btn{background:#334155;border:none;padding:10px;border-radius:10px;cursor:pointer;}
+
+.modal-buttons{display:flex;gap:10px;}
+.btn-primary{flex:1;background:#0ea5e9;border:none;padding:12px;border-radius:10px;color:white;}
+.btn-secondary{flex:1;background:#334155;border:none;padding:12px;border-radius:10px;color:white;}
+
+.links-popup{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:#000c;display:none;align-items:center;justify-content:center;
+}
+.links-box{
+background:#020617;padding:30px;border-radius:20px;
+display:flex;flex-direction:column;gap:15px;
+}
+.popup-logo{width:100px;margin:auto;}
+
+.link-btn{
+display:flex;align-items:center;gap:10px;
+background:#1e293b;padding:15px;border-radius:12px;
+text-decoration:none;color:white;font-family:'Orbitron';
+}
+.link-btn img{width:24px;height:24px;}
+
+#toast{
+position:fixed;top:50%;left:50%;
+transform:translate(-50%,-50%);
+background:#020617;padding:20px;border-radius:15px;
+font-family:'Orbitron';display:none;
+}
