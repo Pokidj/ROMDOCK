@@ -60,6 +60,17 @@
 
 <div id="toast"></div>
 
+<div class="confirm-modal" id="confirmModal">
+  <div class="confirm-box">
+    <p id="confirmText">¿Seguro?</p>
+    <div class="confirm-buttons">
+      <button class="btn-secondary" onclick="closeConfirm(false)">Cancelar</button>
+      <button class="btn-primary" onclick="closeConfirm(true)">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+
 <script src="script.js"></script>
 </body>
 </html>
