@@ -91,6 +91,11 @@ border-radius:12px;
 box-sizing:border-box;
 }
 
+/* 🔥 IMPORTANTE: ocultar dinámico sin dejar hueco */
+#newCategory{
+display:block;
+}
+
 /* LINKS INPUT */
 .links-container{display:flex;flex-direction:column;gap:8px;}
 
