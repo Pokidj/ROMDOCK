@@ -29,6 +29,10 @@ token=prompt("Introduce tu GitHub Token:");
 if(!token)return;
 localStorage.setItem("gh_token",token);
 }
+/* 🔥 CONFIRMACIÓN */
+if(!confirm("¿Estás seguro de guardar los cambios en GitHub?")){
+return;
+}
 
 /* 🔥 MENSAJE INICIAL */
 showToast("⏳ Guardando en GitHub...\nPuede tardar unos segundos");
