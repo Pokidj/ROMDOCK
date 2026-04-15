@@ -142,7 +142,7 @@ function render(){
       <div class="row">`;
 
     data[section].forEach(item=>{
-      html+=`<div class="card" onclick="openModal('${section}','${item.name}')">
+      html+=`<div class="card" onclick="openModal(${JSON.stringify(section)}, ${JSON.stringify(item.name)})">
         <div class="card-actions">
           <button class="icon-btn" onclick="event.stopPropagation();openModal('${section}','${item.name}')">✏️</button>
           <button class="icon-btn" onclick="event.stopPropagation();deleteItem('${section}','${item.name}')">🗑️</button>
