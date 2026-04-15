@@ -227,14 +227,14 @@
       "url": "https://archive.org/details/gg_20240312"
     },
     {
-      "name": "Mega CD",
-      "img": "img/Sega Mega-CD.png",
-      "url": "https://archive.org/details/mdcd_20240312"
-    },
-    {
       "name": "32X",
       "img": "img/Sega 32X.png",
       "url": "https://archive.org/details/32x_20240311"
+    },
+    {
+      "name": "Mega CD",
+      "img": "img/Sega Mega-CD.png",
+      "url": "https://archive.org/details/mdcd_20240312"
     },
     {
       "name": "Saturn",
@@ -297,6 +297,5 @@
       "img": "img/PCGAMES.png"
     }
   ],
-  "test": [],
-  "aa": []
+  "test": []
 }
