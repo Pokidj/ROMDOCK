@@ -17,19 +17,21 @@ function showToast(msg){
 const t=document.getElementById("toast");
 t.innerHTML=msg;
 t.style.display="block";
-setTimeout(()=>t.style.display="none",2500);
+setTimeout(()=>t.style.display="none",4000);
 }
 
 /* GITHUB */
 async function saveToGitHub(){
 let token=localStorage.getItem("gh_token");
+
 if(!token){
 token=prompt("Introduce tu GitHub Token:");
 if(!token)return;
 localStorage.setItem("gh_token",token);
 }
 
-showToast("⏳ Guardando...");
+/* 🔥 MENSAJE INICIAL */
+showToast("⏳ Guardando en GitHub...\nPuede tardar unos segundos");
 
 try{
 const repo="pokidj/ROMDOCK";
@@ -44,15 +46,27 @@ const content=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
 
 const update=await fetch(`https://api.github.com/repos/${repo}/contents/${path}`,{
 method:"PUT",
-headers:{Authorization:`token ${token}`,"Content-Type":"application/json"},
-body:JSON.stringify({message:"update",content,sha:file.sha})
+headers:{
+Authorization:`token ${token}`,
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+message:"update data.json desde editor",
+content,
+sha:file.sha
+})
 });
 
-if(update.ok) showToast("🚀 Guardado correctamente");
-else showToast("❌ Error");
+/* 🔥 MENSAJE FINAL PRO */
+if(update.ok){
+showToast("✅ Guardado correctamente\n🌐 Puede tardar unos segundos en verse en la web");
+}else{
+showToast("❌ Error al guardar en GitHub");
+}
 
-}catch{
-showToast("❌ Error conexión");
+}catch(e){
+console.error(e);
+showToast("❌ Error de conexión con GitHub");
 }
 }
 
