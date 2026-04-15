@@ -184,6 +184,11 @@
         "https://downloadgamepsp.org/category/psvita-game-free-new/"
       ],
       "img": "img/PSVITA.png"
+    },
+    {
+      "name": "ps5",
+      "links": [],
+      "img": "img/ps5.png"
     }
   ],
   "Xbox": [
