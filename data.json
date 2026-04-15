@@ -119,6 +119,13 @@
         "https://nswgame.com/category/switch/",
         "https://romsns.com/game-roms-list/"
       ]
+    },
+    {
+      "name": "rr",
+      "links": [
+        "aa"
+      ],
+      "img": "img/rr.png"
     }
   ],
   "PlayStation": [
