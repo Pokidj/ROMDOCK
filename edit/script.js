@@ -1,40 +1,55 @@
-let data = {};
+let data={},draggedItem=null,editTarget=null;
 
 /* LOAD */
-fetch("/ROMDOCK/data.json", { cache: "no-store" })
-.then(r => {
-  if (!r.ok) throw new Error("No se pudo cargar data.json");
-  return r.json();
+fetch("/ROMDOCK/data.json",{cache:"no-store"})
+.then(r=>{
+if(!r.ok) throw new Error("No carga data.json");
+return r.json();
 })
-.then(j => {
-  console.log("DATA CARGADA:", j);
-  data = j;
-  render();
-})
-.catch(err => {
-  console.error("ERROR:", err);
-  alert("No se pudo cargar data.json");
+.then(j=>{data=j;render();})
+.catch(err=>console.error(err));
+
+function cleanCategories(){
+Object.keys(data).forEach(c=>{
+if(!data[c]||data[c].length===0) delete data[c];
+});
+}
+
+function render(){
+cleanCategories();
+
+const app=document.getElementById("app");
+app.innerHTML="";
+
+Object.keys(data).forEach(section=>{
+let html=`<div class="section">
+<div class="section-title">
+<img src="/ROMDOCK/img/${section}.png" onerror="this.src='/ROMDOCK/img/default.png'">
+${section}
+</div><div class="row">`;
+
+data[section].forEach(item=>{
+html+=`<div class="card"
+data-section="${section}"
+data-name="${item.name}"
+onclick='handleClick(${JSON.stringify(section)},${JSON.stringify(item.name)})'>
+
+<div class="logo-box">
+<img src="/ROMDOCK/${item.img}" onerror="this.src='/ROMDOCK/img/default.png'">
+</div>
+
+<h3>${item.name}</h3>
+</div>`;
 });
 
-/* RENDER SIMPLE (para comprobar que funciona) */
-function render(){
-  const app = document.getElementById("app");
-  app.innerHTML = "";
+html+="</div></div>";
+app.innerHTML+=html;
+});
+}
 
-  Object.keys(data).forEach(section => {
-    let html = `<h2>${section}</h2><div style="display:flex;gap:10px;flex-wrap:wrap;">`;
-
-    data[section].forEach(item => {
-      html += `
-      <div style="background:#1e293b;padding:10px;border-radius:10px;width:150px;text-align:center;">
-        <img src="/ROMDOCK/${item.img}" style="max-width:100%;height:80px;object-fit:contain;" onerror="this.src='/ROMDOCK/img/default.png'">
-        <div>${item.name}</div>
-      </div>`;
-    });
-
-    html += "</div>";
-    app.innerHTML += html;
-  });
+function handleClick(section,name){
+const item=data[section].find(i=>i.name===name);
+if(item.links.length===1) window.open(item.links[0],"_blank");
 }
 
 /* FILE */
