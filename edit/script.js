@@ -180,7 +180,8 @@ document.getElementById("modal").style.display="flex";
 
 const select=document.getElementById("category");
 const newCat=document.getElementById("newCategory");
-
+const newCatWrapper=newCat.parentElement;
+  
 select.innerHTML="";
 Object.keys(data).forEach(c=>select.innerHTML+=`<option>${c}</option>`);
 
@@ -196,13 +197,13 @@ select.value=section;
 
 item.links.forEach(l=>addLinkField(l));
 
-newCat.style.display="none"; // 🔥 ocultar en editar
+newCatWrapper.style.display="none";// 🔥 ocultar en editar
 
 editTarget={section,name};
 }else{
 document.getElementById("modalLogo").src="/ROMDOCK/img/default.png";
 document.getElementById("name").value="";
-newCat.style.display="block"; // 🔥 mostrar en crear
+newCatWrapper.style.display="block"; // 🔥 mostrar en crear
 
 addLinkField();
 editTarget=null;
