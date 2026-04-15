@@ -179,16 +179,37 @@ function dragStart(e){
   draggedItem = {section:e.currentTarget.dataset.section,name:e.currentTarget.dataset.name};
 }
 function dragOver(e){ e.preventDefault(); }
+
 function dropItem(e){
   e.preventDefault();
-  const targetSection=e.currentTarget.dataset.section;
-  const targetName=e.currentTarget.dataset.name;
-  if(!draggedItem||draggedItem.section!==targetSection) return;
-  const list=data[targetSection];
-  const from=list.findIndex(i=>i.name===draggedItem.name);
-  const to=list.findIndex(i=>i.name===targetName);
-  const [moved]=list.splice(from,1);
-  list.splice(to,0,moved);
+
+  const targetSection = e.currentTarget.dataset.section;
+  const targetName = e.currentTarget.dataset.name;
+
+  if(!draggedItem) return;
+
+  const sourceSection = draggedItem.section;
+
+  if(sourceSection === targetSection){
+    const list = data[targetSection];
+    const from = list.findIndex(i=>i.name===draggedItem.name);
+    const to = list.findIndex(i=>i.name===targetName);
+
+    const [moved] = list.splice(from,1);
+    list.splice(to,0,moved);
+  } else {
+    const sourceList = data[sourceSection];
+    const targetList = data[targetSection];
+
+    const from = sourceList.findIndex(i=>i.name===draggedItem.name);
+    const to = targetList.findIndex(i=>i.name===targetName);
+
+    const [moved] = sourceList.splice(from,1);
+    targetList.splice(to,0,moved);
+
+    draggedItem.section = targetSection;
+  }
+
   render();
 }
 
